@@ -18,7 +18,7 @@ class RegisterController extends Controller
     public function index()
     {
         if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
-            return view('auth.register');
+            return view('admin.addsupervisor');
         }
         //redirect the user to the previous page
         else

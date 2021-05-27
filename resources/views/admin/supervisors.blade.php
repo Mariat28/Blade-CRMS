@@ -18,13 +18,14 @@
             <div class="col-lg-12">
                 
                 <div style="width: 100%">
-                    <form action="{{ route('register') }}" method="get">
+                    <form action="{{ route('addsupervisor') }}" method="get">
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
                             <button class="btn btn-success rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Supervisor</button>
                         </div>
                     </form>
                 </div>
+                    <div class="card p-2">
                     @if(count($supervisors) > 0)
                         <div class="table-responsive">
                             <table id="example3" class="display min-w850">
@@ -62,7 +63,8 @@
                         </div>
                     @else
                         <p>No Supervisors Available Yet</p>
-                    @endif					
+                    @endif		
+            </div>			
             </div>
         </div>
     </div>

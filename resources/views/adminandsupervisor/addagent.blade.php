@@ -15,9 +15,9 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Add Supervisor Account</h4>
+                                    <h4 class="text-center mb-4">Add Agent Account</h4>
                                     <div class="basic-form">
-                                        <form action="{{ route('addsupervisor') }}" method="post">
+                                        <form action="{{ route('addagent') }}" method="post">
                                             @csrf
                                             <div class="form-group @error('name') input-danger-o @enderror">
                                                 <label class="mb-1"><strong>Full Name</strong></label>
@@ -55,7 +55,7 @@
                                                 @enderror
                                             </div>
                                             <div class="text-center mt-4">
-                                                <button type="submit" class="btn btn-primary btn-block">Add Supervisor</button>
+                                                <button type="submit" class="btn btn-primary btn-block">Add Agent</button>
                                             </div>
                                         </form>
                                     </div>

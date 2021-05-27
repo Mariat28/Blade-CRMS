@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 
                 <div style="width: 100%">
-                    <form action="{{ route('register') }}" method="get">
+                    <form action="{{ route('addagent') }}" method="get">
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
                             <button class="btn btn-success rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Agent</button>
