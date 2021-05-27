@@ -83,7 +83,8 @@ Route::get('/reports',[ReportsController::class, 'index'])->name('reports');
 Route::get('/analytics',[AnalyticsController::class, 'index'])->name('analytics');
 //Agents
 Route::get('/viewagents',[AgentsController::class, 'viewAgents'])->name('viewagents');
-Route::post('/addagent',[AgentsController::class, 'addAgent'])->name('addagent');
+Route::get('/addagent',[AgentsController::class, 'index'])->name('addagent');
+Route::post('/addagent',[AgentsController::class, 'addAgent']);
 //Settings
 Route::get('/settings',[SettingsController::class, 'index'])->name('settings');
 Route::get('/settingsusers',[SettingsController::class, 'userslist'])->name('settingsusers');

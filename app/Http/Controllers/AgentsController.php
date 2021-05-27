@@ -29,6 +29,11 @@ class AgentsController extends Controller
         }
     }
 
+    public function index()
+    {
+        return view('adminandsupervisor.addagent');
+    }
+
     public function addAgent(Request $request)
     {
         $this->validate($request,[
@@ -48,8 +53,9 @@ class AgentsController extends Controller
             'phonenumber'=> $request->phonenumber,
             'password' => Hash::make($request->password),
         ]);
+
         $agents = User::where('userrole_id', 3)->get();
         $groups = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.supervisors', compact('agents', 'groups'));
+        return redirect()->route('agents', compact('agents', 'groups'));
     }
 }

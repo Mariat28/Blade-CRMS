@@ -779,7 +779,7 @@
                         <span class="nav-text">Tickets</span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('viewagents')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('viewagents') }}" aria-expanded="false">
+                    <li class="{{ (request()->is('viewagents') || request()->is('addagent')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('viewagents') }}" aria-expanded="false">
                         <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Agents</span>
                         </a>
