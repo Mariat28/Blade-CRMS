@@ -38,6 +38,6 @@ class AuthenticationController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('auth.login');
+        return redirect()->route('login');
     }
 }
