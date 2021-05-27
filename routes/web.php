@@ -72,7 +72,9 @@ Route::get('/managerviewsubscriptions',[ManagerViewSubscriptionsController::clas
 
 
 ###ADMINISTRATOR ROUTES
-Route::get('/viewsupervisors',[SupervisorsController::class, 'index'])->name('viewsupervisors');
+Route::get('/viewsupervisors',[SupervisorsController::class, 'supervisors'])->name('viewsupervisors');
+Route::get('/addsupervisor',[SupervisorsController::class, 'index'])->name('addsupervisor');
+Route::post('/addsupervisor',[SupervisorsController::class, 'addsupervisor']);
 
 
 
@@ -81,6 +83,7 @@ Route::get('/reports',[ReportsController::class, 'index'])->name('reports');
 Route::get('/analytics',[AnalyticsController::class, 'index'])->name('analytics');
 //Agents
 Route::get('/viewagents',[AgentsController::class, 'viewAgents'])->name('viewagents');
+Route::post('/addagent',[AgentsController::class, 'addAgent'])->name('addagent');
 //Settings
 Route::get('/settings',[SettingsController::class, 'index'])->name('settings');
 Route::get('/settingsusers',[SettingsController::class, 'userslist'])->name('settingsusers');
@@ -90,7 +93,6 @@ Route::get('/settingsgeneral',[SettingsController::class, 'general'])->name('set
 
 
 ###SUPERVISOR ROUTES
-Route::get('/registercompanysupervisor',[RegisterCompanyAdminController::class, 'index'])->name('registercompanysupervisor');
 Route::post('/registercompanysupervisor',[RegisterCompanyAdminController::class, 'store']);
 
 

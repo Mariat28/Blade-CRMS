@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SupervisorsController extends Controller
 {
@@ -13,7 +14,7 @@ class SupervisorsController extends Controller
         $this->middleware(['auth']);
     }
 
-    public function index()
+    public function supervisors()
     {
         if(Auth::user()->userrole_id == 1){
             
@@ -27,8 +28,39 @@ class SupervisorsController extends Controller
         }
     }
 
-    public function addsupervisor(Request $request)
+    public function index()
     {
-        dd($request);
+        if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
+            return view('admin.addsupervisor');
+        }
+        //redirect the user to the previous page
+        else
+        {
+            //redirect the user to the previous page
+            return back();
+        }
+    }
+
+    public function addSupervisor(Request $request)
+    {
+        $this->validate($request,[
+            'name'=> 'required',
+            'username'=> 'required',
+            'email'=> 'required|email|max:255',
+            'phonenumber'=> 'required',
+            'password'=> 'required',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'userrole_id' => 2,
+            'company_id' => Auth::user()->company_id,
+            'email' => $request->email,
+            'phonenumber'=> $request->phonenumber,
+            'password' => Hash::make($request->password),
+        ]);
+        $supervisors = User::where('userrole_id', 2)->get();
+        return view('admin.supervisors', compact('supervisors'));
     }
 }
