@@ -1,0 +1,16 @@
+.reply-agent textarea::placeholder {
+    font-size: 16px;
+}
+
+.performance-details-table tbody tr td:first-child, .list-of-agents-table tbody tr td:first-child{ 
+    color:#13B497 !important;
+}
+
+.performance-details-table tbody tr td:first-child:hover, .list-of-agents-table tbody tr td:first-child:hover{
+    cursor: pointer;
+    opacity: .9;
+}
+
+.performance-details-table tbody td a.btn {
+    width: 90px;
+}
