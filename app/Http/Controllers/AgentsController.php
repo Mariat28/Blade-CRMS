@@ -18,8 +18,11 @@ class AgentsController extends Controller
     public function viewAgents()
     {
         if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
+            $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
             
-            return view('adminandsupervisor.agents')->with('agents', User::where('userrole_id', 3)->get())->with('groups', Group::where('company_id', Auth::user()->company_id)->get());
+            $groups = Group::where('company_id', Auth::user()->company_id)->get();
+
+            return view('adminandsupervisor.agents', compact(['agents', 'groups']));
         }
         //redirect the user to the previous page
         else

@@ -19,86 +19,28 @@
                     <thead>
                         <tr>
                             <th>Agent ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Company</th>
+                            <th>Agent's Name</th>
+                            <th>Department</th>
                             <th>Telephone</th>
                             <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
-                        <tr class="clickable-row" data-href='./agent performance details.html'>
-                            <td>#0012451</td>
-                            <td>Andrew</td>
-                            <td class="wspace-no">Onyango</td>
-                            <td>Project Code</td>
-                            <td>+31 684 520 308</td>
-                            <td>onyangoa@projectcode.ug</td>
-                        </tr>
+                        @foreach($agents as $agent)
+                            <tr class="clickable-row" data-href="{{ route('agentperformancedetails', ['agentid'=> $agent->id])}}">
+                                <td>#{{$agent->id}}</td>
+                                <td>{{$agent->name}}</td>
+                                @foreach($departments as $department)
+                                    @if($department->id == $agent->group_id)
+                                        <td>{{$department->name}}</td>
+                                    @else
+                                     <td>No Department</td>
+                                    @endif
+                                @endforeach
+                                <td>{{$agent->phonenumber}}</td>
+                                <td>{{$agent->email}}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

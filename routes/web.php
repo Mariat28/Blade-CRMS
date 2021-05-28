@@ -83,7 +83,9 @@ Route::post('/addsupervisor',[SupervisorsController::class, 'addsupervisor']);
 Route::get('/reports',[ReportsController::class, 'index'])->name('reports');
 Route::get('/ticketsvolume',[ReportsController::class, 'ticketsVolume'])->name('ticketsvolume');
 Route::get('/agentsperformance',[ReportsController::class, 'agentsPerformance'])->name('agentsperformance');
+Route::get('/agentperformancedetails/{agentid}',[ReportsController::class, 'agentPerformanceDetails'])->name('agentperformancedetails');
 Route::get('/departmentsperformance',[ReportsController::class, 'departmentsPerformance'])->name('departmentsperformance');
+Route::get('/departmentperformancedetails',[ReportsController::class, 'departmentPerformanceDetails'])->name('departmentperformancedetails');
 //analytics
 Route::get('/analytics',[AnalyticsController::class, 'index'])->name('analytics');
 //Agents
