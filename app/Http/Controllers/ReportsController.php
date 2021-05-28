@@ -26,4 +26,9 @@ class ReportsController extends Controller
     {
         return view('adminandsupervisor.agentsperformance');
     }
+
+    public function departmentsPerformance()
+    {
+        return view('adminandsupervisor.departmentsperformance');
+    }
 }

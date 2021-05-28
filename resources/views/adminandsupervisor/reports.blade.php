@@ -63,10 +63,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./group performance.html">
+                              <a href="{{ route('departmentsperformance') }}">
                                 <img src="./images/icons/group.svg" alt="Lights" style="width:10%">
                                 <div class="caption">
-                                  <p>Group Performance</p>
+                                  <p>Departments Performance</p>
                                 </div>
                               </a>
                             </div>

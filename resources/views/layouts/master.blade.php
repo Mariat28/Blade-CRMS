@@ -791,7 +791,7 @@
                             </a>
                         </li>
                     @endif
-                    <li class="{{ (request()->is('reports') || request()->is('ticketsvolume')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('reports') }}" aria-expanded="false">
+                    <li class="{{ (request()->is('reports') || request()->is('ticketsvolume') || request()->is('agentsperformance') || request()->is('departmentsperformance')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('reports') }}" aria-expanded="false">
                         <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Reports</span>
                         </a>
