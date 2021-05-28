@@ -46,10 +46,9 @@
 					<label>Assign to group (optional)</label>
 					<select class="form-control" id="ticketgroup" name="group">
 					<option>select group</option>
-					<option>refunds</option>
-					<option>satisfaction</option>
-					<option>technical</option>
-					<option>others</option>
+					@foreach($departments as $department)
+					<option value="{{$department->id}}">{{$department->name}}</option>
+					@endforeach
 					</select>
 				</div>
 					<div class="form-group">

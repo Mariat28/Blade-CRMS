@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>HelpDesk</title>
 	<!-- Favicon icon -->
@@ -774,7 +775,7 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
 					</li>
-                    <li class="{{ (request()->is('tickets') || request()->is('closedtickets') || request()->is('opentickets') || request()->is('pendingtickets')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('tickets') }}" aria-expanded="false">
+                    <li class="{{ (request()->is('tickets') || request()->is('closedtickets')||request()->is('ticketdetails*') || request()->is('opentickets') || request()->is('pendingtickets')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('tickets') }}" aria-expanded="false">
                         <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Tickets</span>
                         </a>

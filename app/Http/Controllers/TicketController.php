@@ -71,9 +71,9 @@ class TicketController extends Controller
     public function ticketdetails($id, Request $req){
         $data=Ticket::find($id);
         $agents =User::where('userrole_id', 3)->get();
-        $newtickets=Ticket::where('user_id', null)->get();
+        $tickets=Ticket::where('user_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminticketdetails',compact('data','agents','newtickets', 'departments'));
+        return view('adminandsupervisor.ticketdetails',compact('data','agents','tickets', 'departments'));
     }
 
 
@@ -101,13 +101,12 @@ class TicketController extends Controller
         return back();
     }
 
-
-    //retrieve answer
-    // public function answer($id){
-    //     $answer=Answer::find($id);
-    //     return view('openticketdetails',compact('answer','id'));
-
-    // }
+// update ticket status
+public function updateticket(Request $request){
+    Ticket::where('id', $request->ticket_id)->update(['status_id' => '1']);
+return back();
+    
+}
     public function assign(Request $request){
         $id = intval($request->agent);
         Ticket::where('id', $request->ticketid)->update(['user_id' => $id]);

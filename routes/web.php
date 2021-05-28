@@ -131,3 +131,5 @@ Route::post('/ticketdetails/{id}', [TicketController::class, 'ticketreply'])->na
 Route::get('/openticketdetails/{id}', [TicketController::class, 'openticketdetails'])->name('openticketdetails');
 //route to retrieve groups
 Route::get('/groups', [TicketController::class, 'assign'])->name('groups');
+//update ticket status
+Route::post('/updateticket',[TicketController::class,'updateticket'])->name('updateticket');
