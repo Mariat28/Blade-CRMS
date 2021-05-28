@@ -18,8 +18,11 @@ class AgentsController extends Controller
     public function viewAgents()
     {
         if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
+            $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
             
-            return view('adminandsupervisor.agents')->with('agents', User::where('userrole_id', 3)->get())->with('groups', Group::where('company_id', Auth::user()->company_id)->get());
+            $groups = Group::where('company_id', Auth::user()->company_id)->get();
+
+            return view('adminandsupervisor.agents', compact(['agents', 'groups']));
         }
         //redirect the user to the previous page
         else
@@ -27,6 +30,11 @@ class AgentsController extends Controller
             //redirect the user to the previous page
             return back();
         }
+    }
+
+    public function index()
+    {
+        return view('adminandsupervisor.addagent');
     }
 
     public function addAgent(Request $request)
@@ -48,8 +56,9 @@ class AgentsController extends Controller
             'phonenumber'=> $request->phonenumber,
             'password' => Hash::make($request->password),
         ]);
+
         $agents = User::where('userrole_id', 3)->get();
         $groups = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.supervisors', compact('agents', 'groups'));
+        return redirect()->route('agents', compact('agents', 'groups'));
     }
 }

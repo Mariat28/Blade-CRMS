@@ -79,11 +79,19 @@ Route::post('/addsupervisor',[SupervisorsController::class, 'addsupervisor']);
 
 
 ###ADMINISTRATOR AND SUPERVISOR ROUTING
+//reports
 Route::get('/reports',[ReportsController::class, 'index'])->name('reports');
+Route::get('/ticketsvolume',[ReportsController::class, 'ticketsVolume'])->name('ticketsvolume');
+Route::get('/agentsperformance',[ReportsController::class, 'agentsPerformance'])->name('agentsperformance');
+Route::get('/agentperformancedetails/{agentid}',[ReportsController::class, 'agentPerformanceDetails'])->name('agentperformancedetails');
+Route::get('/departmentsperformance',[ReportsController::class, 'departmentsPerformance'])->name('departmentsperformance');
+Route::get('/departmentperformancedetails',[ReportsController::class, 'departmentPerformanceDetails'])->name('departmentperformancedetails');
+//analytics
 Route::get('/analytics',[AnalyticsController::class, 'index'])->name('analytics');
 //Agents
 Route::get('/viewagents',[AgentsController::class, 'viewAgents'])->name('viewagents');
-Route::post('/addagent',[AgentsController::class, 'addAgent'])->name('addagent');
+Route::get('/addagent',[AgentsController::class, 'index'])->name('addagent');
+Route::post('/addagent',[AgentsController::class, 'addAgent']);
 //Settings
 Route::get('/settings',[SettingsController::class, 'index'])->name('settings');
 Route::get('/settingsusers',[SettingsController::class, 'userslist'])->name('settingsusers');

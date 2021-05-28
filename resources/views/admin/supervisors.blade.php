@@ -21,7 +21,7 @@
                     <form action="{{ route('addsupervisor') }}" method="get">
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
-                            <button class="btn btn-success rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Supervisor</button>
+                            <button class="btn btn-primary rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Supervisor</button>
                         </div>
                     </form>
                 </div>
@@ -31,8 +31,8 @@
                             <table id="example3" class="display min-w850">
                                 <thead>
                                     <tr>
-                                        <th>Agent ID</th>
-                                        <th>Agent Name</th>
+                                        <th>Supervisor ID</th>
+                                        <th>Supervisor Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Date Added</th>

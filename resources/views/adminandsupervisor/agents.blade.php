@@ -21,48 +21,50 @@
                     <form action="{{ route('addagent') }}" method="get">
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
-                            <button class="btn btn-success rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Agent</button>
+                            <button class="btn btn-primary rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Agent</button>
                         </div>
                     </form>
                 </div>
-                @if(count($agents) > 0)
-                    <div class="table-responsive table-hover fs-14">
-                        <table class="table mb-4 dataTablesCard " id="example5">
-                            <thead>
-                                <tr>
-                                    <th>Agent ID</th>
-                                    <th>Agent Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Group</th>
-                                    <th>Date Added</th>
-                                    <th>Date Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($agents as $agent)
+                    <div class="card p-2">
+                    @if(count($agents) > 0)
+                        <div class="table-responsive">
+                            <table id="example3" class="display min-w850">
+                                <thead>
+                                    <tr>
+                                        <th>Agent ID</th>
+                                        <th>Agent Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Date Added</th>
+                                        <th>Date Updated</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($agents as $agent)
                                     <tr class="clickable-row"'>
                                         <td>#{{ $agent->id }}</td>
                                         <td>{{ $agent->name }}</td>
                                         <td class="wspace-no">{{ $agent->email }}</td>
                                         <td>{{ $agent->phonenumber }}</td>
-                                        <td>
-                                            @foreach($groups as $group)
-                                                @if($group->id == $agent->group_id)
-                                                    {{ $group->name }}
-                                                @endif
-                                            @endforeach
-                                        </td>
                                         <td>{{ $agent->created_at }}</td>
                                         <td>{{ $agent->updated_at }}</td>
-                                </tr>	
-                                @endforeach
-                            </tbody>
-                        </table>
-                </div>
-                @else
-                    <p>No Agents Available Yet</p>
-                @endif							
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            </div>												
+                                        </td>	
+                                    </tr>
+
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p>No Agents Available Yet</p>
+                    @endif		
+            </div>			
             </div>
         </div>
     </div>
@@ -73,14 +75,13 @@
 <script src="./vendor/global/global.min.js"></script>
 	<script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="./js/custom.min.js"></script>
-	<script src="./vendor/chart.js/Chart.bundle.min.js"></script>
 	<script src="./js/deznav-init.js"></script>
-	<script src="./vendor/owl-carousel/owl.carousel.js"></script>
 	
-	<!-- Datatable -->
-	<script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <!-- Datatable -->
+    <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="./js/plugins-init/datatables.init.js"></script>
 	<script>
-		(function($) {
+		/*(function($) {
 			var table = $('#example5').DataTable({
 				searching: false,
 				paging:true,
@@ -103,6 +104,6 @@
 
 			});
 
-		});
+		});*/
 </script>  
 @endsection

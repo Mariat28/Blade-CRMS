@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./reports-tickets-volume.html">
+                              <a href="{{ route('ticketsvolume') }}">
                                 <img src="./images/icons/trendtwo.svg" alt="Lights" style="width:10%; color: #13B497;">
                                 <div class="caption">
                                   <p>Ticket Volume</p>
@@ -53,27 +53,27 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./agent performance.html">
+                              <a href="{{ route('agentsperformance') }}">
                                 <img src="./images/icons/agent.svg" alt="Lights" style="width:10%">
                                 <div class="caption">
-                                  <p>Agent Performance</p>
+                                  <p>Agents Performance</p>
                                 </div>
                               </a>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./group performance.html">
+                              <a href="{{ route('departmentsperformance') }}">
                                 <img src="./images/icons/group.svg" alt="Lights" style="width:10%">
                                 <div class="caption">
-                                  <p>Group Performance</p>
+                                  <p>Departments Performance</p>
                                 </div>
                               </a>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./ticket lifecycle.html">
+                              <a href="#">
                                 <img src="./images/icons/lifecycle.svg" alt="Lights" style="width:10%">
                                 <div class="caption">
                                   <p>Ticket Lifecycle</p>
@@ -98,7 +98,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./customer analysis.html">
+                              <a href="#">
                                 <img src="./images/icons/customer.svg" alt="Lights" style="width:10%; color: #13B497;">
                                 <div class="caption">
                                   <p>Customer Analysis</p>
