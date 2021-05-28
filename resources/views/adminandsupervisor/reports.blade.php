@@ -53,10 +53,10 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./agent performance.html">
+                              <a href="{{ route('agentsperformance') }}">
                                 <img src="./images/icons/agent.svg" alt="Lights" style="width:10%">
                                 <div class="caption">
-                                  <p>Agent Performance</p>
+                                  <p>Agents Performance</p>
                                 </div>
                               </a>
                             </div>

@@ -79,8 +79,11 @@ Route::post('/addsupervisor',[SupervisorsController::class, 'addsupervisor']);
 
 
 ###ADMINISTRATOR AND SUPERVISOR ROUTING
+//reports
 Route::get('/reports',[ReportsController::class, 'index'])->name('reports');
 Route::get('/ticketsvolume',[ReportsController::class, 'ticketsVolume'])->name('ticketsvolume');
+Route::get('/agentsperformance',[ReportsController::class, 'agentsPerformance'])->name('agentsperformance');
+//analytics
 Route::get('/analytics',[AnalyticsController::class, 'index'])->name('analytics');
 //Agents
 Route::get('/viewagents',[AgentsController::class, 'viewAgents'])->name('viewagents');
