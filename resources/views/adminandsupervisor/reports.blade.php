@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./ticket lifecycle.html">
+                              <a href="#">
                                 <img src="./images/icons/lifecycle.svg" alt="Lights" style="width:10%">
                                 <div class="caption">
                                   <p>Ticket Lifecycle</p>
@@ -98,7 +98,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./customer analysis.html">
+                              <a href="#">
                                 <img src="./images/icons/customer.svg" alt="Lights" style="width:10%; color: #13B497;">
                                 <div class="caption">
                                   <p>Customer Analysis</p>
