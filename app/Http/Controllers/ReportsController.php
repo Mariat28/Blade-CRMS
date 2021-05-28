@@ -16,4 +16,9 @@ class ReportsController extends Controller
     {
         return view('adminandsupervisor.reports');
     }
+
+    public function ticketsVolume()
+    {
+        return view('adminandsupervisor.ticketsvolume');
+    }
 }

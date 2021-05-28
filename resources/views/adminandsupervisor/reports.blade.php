@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="thumbnail">
-                              <a href="./reports-tickets-volume.html">
+                              <a href="{{ route('ticketsvolume') }}">
                                 <img src="./images/icons/trendtwo.svg" alt="Lights" style="width:10%; color: #13B497;">
                                 <div class="caption">
                                   <p>Ticket Volume</p>
