@@ -52,7 +52,7 @@
                                         <td>
                                             <div class="d-flex">
                                                 <a href="#" class="btn light btn-primary shadow btn-xs sharp mr-5"><i class="fa fa-pencil"></i></a>
-                                                <a href="#" class="btn light btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                <a href="/deleteuser/{{$agent->id}}" value="{{$agent->id}}" class="btn light btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                             </div>												
                                         </td>	
                                     </tr>

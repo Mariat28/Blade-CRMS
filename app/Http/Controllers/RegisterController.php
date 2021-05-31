@@ -51,5 +51,11 @@ class RegisterController extends Controller
         return view('dashboard');
         
     }
+    //delete user
+    public function deleteuser($id, Request $request){
+     User::where('id', $id)->delete();
+     return back();
+
+    }
         
 }

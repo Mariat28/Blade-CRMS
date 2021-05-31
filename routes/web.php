@@ -57,6 +57,9 @@ Route::post('/addcommenttoticket',[AddCommentToTicketController::class, 'store']
 
 Route::get('/register',[RegisterController::class, 'index'])->name('register');
 Route::post('/register',[RegisterController::class, 'store']);
+//delete user
+Route::get('/deleteuser/{id}',[RegisterController::class,'deleteuser']);
+Route::post('/deleteuser/{id}',[RegisterController::class,'deleteuser']);
 
 
 

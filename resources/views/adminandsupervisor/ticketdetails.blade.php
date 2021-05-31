@@ -37,10 +37,11 @@
                                                     <h6 class="text-primary mb-0 mt-1">Sent By:{{$data->created_by}}</h6>
                                                     <p class="mb-0 mt-1">{{$data->created_at}}</p>
                                                 </div>
-                                                <a href="javascript:void()" data-target="#tktassign" data-toggle="modal" class="btn btn-primary px-3 light"><i class="fa fa-user-plus"></i> </a>
-                                                <a href="/changestatus" data-id='{{$data->id}}' class="btn btn-primary px-3 light ml-2" id="close" data-onstyle="success" data-on="Open" data-offstyle="danger" data-off="Closed" data-toggle="toggle" {{$data->status_id?'open':''}}><i class="fa fa-pause"></i> </a>
-                                                <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-envelope"></i> </a>
-                                                <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void()" data-target="#tktassign" data-toggle="modal" title="Assign ticket to Agent" data-placement="left" data-toggle="tooltip" class="btn btn-primary px-3 light"><i class="fa fa-user-plus"></i> </a>
+                                                <a href="/changestatus" data-id='{{$data->id}}' class="btn btn-primary px-3 light ml-2" id="close" data-onstyle="success" 
+                                                data-on="Open" data-offstyle="danger" data-off="Closed" title="Press to close ticket" data-placement="right" data-toggle="tooltip" {{$data->status_id?'open':''}}><i class="fa fa-pause"></i> </a>
+                                                <!-- <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-envelope"></i> </a>
+                                                <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-trash"></i></a> -->
                                             </div>
                                             <hr>
                                             <div class="media mb-2 mt-3">

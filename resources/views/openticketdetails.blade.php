@@ -14,33 +14,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="email-left-box generic-width px-0 mb-5">
-                                    <div class="p-0">
-                                        <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#newticket"><i class="fa fa-plus font-18 align-middle mr-2"></i></i>Create New Ticket</a>
-                                    </div>
-                                    <div class="mail-list mt-4">
-                                        <a href="/tickets" class="list-group-item"><i class="fa fa-inbox font-18 align-middle mr-2"></i> Unassigned <span class="badge badge-primary badge-sm float-right">{{count($newtickets)}}</span> </a>
-                                        <a href="/opentickets" class="list-group-item  active"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>Open </a> 
-                                        <!--<a href="javascript:void()" class="list-group-item"><i class="fa fa-star font-18 align-middle mr-2"></i>Due Today <span class="badge badge-danger text-white badge-sm float-right">47</span>-->
-                                        <!--</a>-->
-                                        <!--<a href="javascript:void()" class="list-group-item"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Onhold</a>-->
-                                        <a href="/closedtickets" class="list-group-item"><i class="fa fa-trash font-18 align-middle mr-2"></i>Closed</a>
-                                    </div>
-                                    <div class="intro-title d-flex justify-content-between">
-                                        <h5>Categories</h5>
-                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="mail-list mt-4">
-                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-warning"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                            Refunds </a>
-                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-primary"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                            Escalating </a>
-                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-success"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                            Support </a>
-                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-dpink"><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                            Satisfaction </a>
-                                    </div>
-                                </div>
+                                @include('blocks.ticketsmenu')
                                 <div class="email-right-box ml-0 ml-sm-4 ml-sm-0">
                                     <div class="row">
                                         <div class="col-12">
@@ -57,10 +31,8 @@
                                                                 <h6 class="text-primary mb-0 mt-1">Sent By:{{$ticket->sender}}</h6>
                                                                 <p class="mb-0 mt-1">{{$ticket->created_at}}</p>
                                                             </div>
-                                                            <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-pause"></i> </a>
-                                                            <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-envelope"></i> </a>
-                                                            <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-trash"></i></a>
-                                                        </div>
+                                                            <a href="/changestatus" class="btn btn-primary px-3 light  ml-2" title="Press to close ticket" data-placement="right" data-toggle="tooltip"><i class="fa fa-play mr-2"></i></a>
+                                                            </div>
                                                         <hr>
                                                         <div class="media mb-2 mt-3">
                                                             <div class="media-body"><span class="pull-right">07:23 AM</span>
@@ -147,4 +119,7 @@
         <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="{{URL::asset('js/custom.min.js')}}"></script>
         <script src="{{URL::asset('js/deznav-init.js')}}"></script>
+        <script>
+        $(function () {$('[data-toggle="tooltip"]').tooltip()})
+        </script>
 @endsection

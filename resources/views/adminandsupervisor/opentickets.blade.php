@@ -26,10 +26,10 @@
                         @include('blocks.ticketsactions')
                         
                         <div class="email-list mt-3">
-                            @if(count($tickets)<=0)
+                            @if(count($opentickets)<=0)
                             <div class="subject">No open tickets!!!</div>
                             @endif
-                            @foreach ($tickets as $ticket)
+                            @foreach ($opentickets as $ticket)
                                 <div class="message">
                                     <div>
                                         <div class="d-flex message-single">

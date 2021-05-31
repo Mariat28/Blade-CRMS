@@ -21,7 +21,7 @@
                     <form>
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
-                            <a class="btn btn-primary rounded btn-block mb-5" data-toggle="modal" data-target="#addsupervisor"  style="width: 100%">+ Add new Supervisor</a>
+                            <a class="btn btn-primary rounded btn-block mb-5" data-toggle="modal" data-target="#addsupervisor"  style="width: 100%">+ Add Supervisor</a>
                         </div>
                     </form>
                 </div>

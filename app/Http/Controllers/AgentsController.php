@@ -61,4 +61,5 @@ class AgentsController extends Controller
         $groups = Group::where('company_id', Auth::user()->company_id)->get();
         return redirect()->route('viewagents', compact('agents', 'groups'));
     }
+    
 }

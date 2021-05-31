@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="basic-form">
 
-                    <form action="{{ route('addsupervisor') }}" method="post" id="addsupervisor">
+                    <form action="{{ route('addsupervisor')}}" method="post" id="addnewsupervisor">
                         @csrf
                         <div class="form-group @error('name') input-danger-o @enderror">
                             <label class="mb-1"><strong>Full Name</strong></label>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group @error('password') input-danger-o @enderror">
                             <label class="mb-1"><strong>Password</strong></label>
-                            <input type="text" class="form-control" value="" name="password" name="password">
+                            <input type="password" class="form-control" value="" name="password" name="password">
                             @error('password')
                             <p class="text-danger text-sm">{{ $message }}</p>
                             @enderror
@@ -51,9 +51,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
-		  <button type="submit" class="btn btn-primary" form="addsupervisor">Add Supervisor</button>
-		</div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                <button type="submit" class="btn btn-primary" form="addnewsupervisor" >Add Supervisor</button>
+            </div>
         </div>
     </div>
 </div>
