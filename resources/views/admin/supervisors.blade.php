@@ -18,10 +18,10 @@
             <div class="col-lg-12">
                 
                 <div style="width: 100%">
-                    <form action="{{ route('addsupervisor') }}" method="get">
+                    <form>
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
-                            <button class="btn btn-primary rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Supervisor</button>
+                            <a class="btn btn-primary rounded btn-block mb-5" data-toggle="modal" data-target="#addsupervisor"  style="width: 100%">+ Add new Supervisor</a>
                         </div>
                     </form>
                 </div>
@@ -42,7 +42,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($supervisors as $supervisor)
-                                    <tr class="clickable-row"'>
+                                    <tr class="clickable-row">
                                         <td>#{{ $supervisor->id }}</td>
                                         <td>{{ $supervisor->name }}</td>
                                         <td class="wspace-no">{{ $supervisor->email }}</td>
@@ -69,6 +69,7 @@
         </div>
     </div>
 </div>
+@include('admin.addnewsupervisor')
 @endsection
 
 @section('scripts')

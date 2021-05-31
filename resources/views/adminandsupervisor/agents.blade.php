@@ -18,10 +18,10 @@
             <div class="col-lg-12">
                 
                 <div style="width: 100%">
-                    <form action="{{ route('addagent') }}" method="get">
+                    <form>
                         @csrf
                         <div class="col-lg-3 mb-4 mb-lg-0 ">
-                            <button class="btn btn-primary rounded btn-block mb-5" type="submit" style="width: 100%">+ Add new Agent</button>
+                            <a class="btn btn-primary rounded btn-block mb-5" style="width: 100%" data-toggle="modal" data-target="#newagent">+ Add new Agent</a>
                         </div>
                     </form>
                 </div>
@@ -42,7 +42,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($agents as $agent)
-                                    <tr class="clickable-row"'>
+                                    <tr class="clickable-row">
                                         <td>#{{ $agent->id }}</td>
                                         <td>{{ $agent->name }}</td>
                                         <td class="wspace-no">{{ $agent->email }}</td>
@@ -69,6 +69,7 @@
         </div>
     </div>
 </div>
+@include('blocks.addagent')
 @endsection
 
 @section('scripts')

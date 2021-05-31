@@ -20,6 +20,7 @@ class TicketController extends Controller
             'created_by' => Auth::user()->name,
             'priority_id'=> 3,
             'duration' => 0,
+            'status_id'=>null,
             'user_id' => null,
         ]);
         
@@ -33,7 +34,7 @@ class TicketController extends Controller
     public function ticket()
     {
         // $ticket=DB::select('select*from tickets');
-        $tickets = Ticket::where('user_id', null)->get();
+        $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         return view('adminandsupervisor.tickets',compact('tickets', 'departments'));
     }
@@ -42,7 +43,7 @@ class TicketController extends Controller
     public function openticket()
     {
     $tickets = Ticket::where('status_id', 3)->get();
-    $opentickets=Ticket::where('user_id', null)->get();
+    $opentickets=Ticket::where('status_id', null)->get();
     $departments = Group::where('company_id', Auth::user()->company_id)->get();
     return view('adminandsupervisor.opentickets',compact('tickets','opentickets','departments'));
     }
@@ -50,10 +51,10 @@ class TicketController extends Controller
 
     public function closedticket()
     {
-        $tickets = Ticket::where('status_id', 1)->get();
-        $newtickets =Ticket::where('user_id', null)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        $tickets =Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.closedtickets',compact('tickets','newtickets', 'departments'));
+        return view('adminandsupervisor.closedtickets',compact('closedtickets','tickets', 'departments'));
     } 
      
     
@@ -61,7 +62,7 @@ class TicketController extends Controller
     public function pendingticket()
     {
         $tickets = Ticket::where('status_id', 2)->get();
-        $newtickets =Ticket::where('user_id', null)->get();
+        $newtickets =Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
          return view('adminandsupervisor.pendingtickets',compact('tickets','newtickets', 'departments'));
     }
@@ -71,7 +72,7 @@ class TicketController extends Controller
     public function ticketdetails($id, Request $req){
         $data=Ticket::find($id);
         $agents =User::where('userrole_id', 3)->get();
-        $tickets=Ticket::where('user_id', null)->get();
+        $tickets=Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         return view('adminandsupervisor.ticketdetails',compact('data','agents','tickets', 'departments'));
     }
@@ -102,14 +103,15 @@ class TicketController extends Controller
     }
 
 // update ticket status
-public function updateticket(Request $request){
-    Ticket::where('id', $request->ticket_id)->update(['status_id' => '1']);
-return back();
-    
+public function changeTicketstatus(Request $request){
+    Ticket::where('id', $request->id)->update(['status_id' => '1']);
+return back();    
 }
     public function assign(Request $request){
         $id = intval($request->agent);
         Ticket::where('id', $request->ticketid)->update(['user_id' => $id]);
+              //update the ticket status to a pending ticket
+              Ticket::where('id', $request->ticketid)->update(['status_id' => 2, 'user_id' => Auth::user()->id]);
         return back();
 
     }

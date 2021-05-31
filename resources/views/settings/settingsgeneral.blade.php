@@ -32,7 +32,7 @@
                                 <div class="card support-card card-border">
                                     <img src="images/icons/customer-service.svg" class="text-primary"
                                         height="60">
-                                    <a class="text-center mt-3" href="agentlist.html">Agents</a>
+                                    <a class="text-center mt-3" href="/viewagents">Agents</a>
                                 </div>
 
                             </div>

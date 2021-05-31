@@ -38,7 +38,7 @@
                                                     <p class="mb-0 mt-1">{{$data->created_at}}</p>
                                                 </div>
                                                 <a href="javascript:void()" data-target="#tktassign" data-toggle="modal" class="btn btn-primary px-3 light"><i class="fa fa-user-plus"></i> </a>
-                                                <a href="javascript:void()" data-id='{{$data->status_id}}' class="btn btn-primary px-3 light ml-2" id="close"><i class="fa fa-pause"></i> </a>
+                                                <a href="/changestatus" data-id='{{$data->id}}' class="btn btn-primary px-3 light ml-2" id="close" data-onstyle="success" data-on="Open" data-offstyle="danger" data-off="Closed" data-toggle="toggle" {{$data->status_id?'open':''}}><i class="fa fa-pause"></i> </a>
                                                 <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-envelope"></i> </a>
                                                 <a href="javascript:void()" class="btn btn-primary px-3 light ml-2"><i class="fa fa-trash"></i></a>
                                             </div>
@@ -97,16 +97,15 @@
             }
         });
         $('#close').click(function() {
-            $id=$(this).data
+            let statusid=1;
+            let ticket_id=$(this).data('id');
             $.ajax({
-                url: '/updateticket/',
-                method: 'POST',
-                data: {
-                    
-
+                type:"post",
+                dataType:'json',
+                url:"/changestatus",
+                data:{
+                    'status_id':statusid, 'id':ticket_id
                 }
-            }).then(function() {
-                alert('success' );
             })
         });
     })

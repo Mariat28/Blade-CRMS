@@ -140,4 +140,5 @@ Route::get('/openticketdetails/{id}', [TicketController::class, 'openticketdetai
 //route to retrieve groups
 Route::get('/groups', [TicketController::class, 'assign'])->name('groups');
 //update ticket status
-Route::post('/updateticket',[TicketController::class,'updateticket'])->name('updateticket');
+Route::get('/changestatus',[TicketController::class,'changeTicketstatus'])->name('changestatus');
+Route::post('/changestatus',[TicketController::class,'changeTicketstatus'])->name('changestatus');

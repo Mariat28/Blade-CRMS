@@ -59,6 +59,6 @@ class AgentsController extends Controller
 
         $agents = User::where('userrole_id', 3)->get();
         $groups = Group::where('company_id', Auth::user()->company_id)->get();
-        return redirect()->route('agents', compact('agents', 'groups'));
+        return redirect()->route('viewagents', compact('agents', 'groups'));
     }
 }
