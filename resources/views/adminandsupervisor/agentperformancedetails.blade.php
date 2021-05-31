@@ -18,7 +18,7 @@
                 <div class="card-body px-4 py-3 py-lg-2">
                     <div class="row align-items-center">
                         <div class="col-xl-3 col-xxl-12 col-lg-12 my-2">
-                            <p class="mb-0 fs-14">Andrew Onyango</p>
+                            <p class="mb-0 fs-14">{{ $agent->name }}</p>
                         </div>
                         <div class="col-xl-7 col-xxl-12 col-lg-12">
                             <div class="row align-items-center">
@@ -105,7 +105,7 @@
                             <td>{{$ticket->created_at}}</td>
                             <td class="wspace-no">How do I place a custom order?</td>
                             <td>{{$ticket->updated_at}}</td>
-                            <td>{{ $group ??  'Uncategorized' }}</td>
+                            <td>{{ $group->name ??  'Uncategorized' }}</td>
                             @foreach($statuses as $status)
                                 @if($ticket->status_id == $status->id)
                                     <td>{{ $status->name }}</td>
@@ -114,14 +114,16 @@
                             
                             <td>
                                 @if($ticket->priority_id == 1)
-                                    <span class="badge light badge-danger">
-                                @elseif($ticket->priority_id == 2)
-                                    <span class="badge light badge-warning">
-                                @elseif($ticket->priority_id == 3)
-                                    <span class="badge light badge-secondary">
-                                @endif
+                                    <span class="badge light badge-danger" style="width: 100px">
                                     <i class="fa fa-circle text-danger mr-1"></i>
-                                    HIGH
+                                @elseif($ticket->priority_id == 2)
+                                    <span class="badge light badge-primary" style="width: 100px">
+                                    <i class="fa fa-circle text-primary mr-1"></i>
+                                @elseif($ticket->priority_id == 3)
+                                    <span class="badge light badge-warning" style="width: 100px">
+                                    <i class="fa fa-circle text-warning mr-1"></i>
+                                @endif
+                                    {{$priorities[($ticket->priority_id - 1)]->name}}
                                 </span>
                             </td>
                         </tr>

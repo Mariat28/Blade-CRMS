@@ -38,15 +38,15 @@ class ReportsController extends Controller
 
     public function agentPerformanceDetails($agentId)
     {
-        $agent = User::where('id', $agentId)->get();
+        $agent = User::find($agentId);
         $tickets = Ticket::where('user_id', $agentId)->get();
         $ressolvedTickets = Ticket::where('user_id', $agentId)->where('status_id', 3)->get();
         $pendingTickets = Ticket::where('user_id', $agentId)->where('status_id', 2)->get();
-        $group = Group::find('id', $agent->group_id);
+        $group = Group::find($agent->group_id);
         $statuses = TicketStatus::all();
         $priorities = TicketPriority::all();
 
-        return view('adminandsupervisor.agentperformancedetails', compact(['tickets', 'ressolvedTickets', 'pendingTickets', 'group', 'statuses', 'priorities']));
+        return view('adminandsupervisor.agentperformancedetails', compact(['tickets', 'ressolvedTickets', 'pendingTickets', 'group', 'statuses', 'priorities', 'agent']));
     }
 
     public function departmentsPerformance()
