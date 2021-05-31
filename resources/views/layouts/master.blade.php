@@ -793,13 +793,8 @@
                         </li>
                     @endif
                     <li class="{{ (request()->is('reports') || request()->is('ticketsvolume') || request()->is('agentsperformance') || request()->is('agentperformancedetails/*') || request()->is('departmentsperformance')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('reports') }}" aria-expanded="false">
-                        <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
+                        <i class="flaticon-381-netw		orking<i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="{{ (request()->is('analytics')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('analytics') }}" aria-expanded="false">
-                        <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
-                        <span class="nav-text">Analytics</span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('settings') || request()->is('settingsusers') || request()->is('settingssupportchannels')|| request()->is('settingsgeneral')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('settings') }}" aria-expanded="false">
