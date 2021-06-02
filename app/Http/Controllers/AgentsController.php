@@ -15,6 +15,11 @@ class AgentsController extends Controller
         $this->middleware(['auth']);
     }
 
+    public function index()
+    {
+        return view('adminandsupervisor.addagent');
+    }
+
     public function viewAgents()
     {
         if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
@@ -30,11 +35,6 @@ class AgentsController extends Controller
             //redirect the user to the previous page
             return back();
         }
-    }
-
-    public function index()
-    {
-        return view('adminandsupervisor.addagent');
     }
 
     public function addAgent(Request $request)

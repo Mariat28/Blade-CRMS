@@ -30,14 +30,14 @@
 											<td>{{ $ticket->created_at }}</td>
 											<td>{{ $group->name }}</td>
 											<td>
-												@foreach($ticketstatuses as $status)
+												@foreach($ticketStatuses as $status)
 													@if($status->id == $ticket->status_id)
 														{{ $status->name}}
 													@endif
 												@endforeach
 											</td>
 											<td>
-												@foreach($ticketpriorities as $priority)
+												@foreach($ticketPriorities as $priority)
 													@if($priority->id == $ticket->priority_id)
 														@if($priority->id == 1)
 															<a style="width: 90px;" href="javascript:void(0);" class="btn btn-danger light btn-sm">
