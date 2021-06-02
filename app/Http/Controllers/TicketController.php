@@ -89,6 +89,17 @@ class TicketController extends Controller
         $tickets = Ticket::where('status_id', null)->get();
         return view('openticketdetails', compact('ticket', 'reply', 'comments', 'tickets', 'departments'));
     }
+    //retrieve closedticket details
+    public function closedticketdetails($id){
+        $ticket = Ticket::find($id);
+        $creator=User::where('id',$ticket->user_id)->get();
+        $reply =  Reply::where('ticket_id', $id)->get();
+        $comments = $ticket->comments;
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('adminandsupervisor.closedticketdetails', compact('ticket', 'reply','creator', 'comments', 'tickets', 'departments'));
+    
+    }
 
 
     //reply to ticket
@@ -108,8 +119,22 @@ class TicketController extends Controller
     // update ticket status
     public function changeTicketstatus(Request $request)
     {
+      
         Ticket::where('id', $request->id)->update(['status_id' => '1']);
+        Reply::create([
+            'reply'=>"Closed",
+            'user_id'=>Auth::user()->id,
+            'ticket_id'=>$request->id,
+        ]);
         return redirect()->route('tickets');
+    }
+    //delete ticket
+    public function deleteticket($id){
+        Reply::where('ticket_id',$id)->delete();
+        Comment::where('ticket_id',$id)->delete();
+        Ticket::where('id', $id)->delete();
+        return redirect()->route('closedtickets');
+
     }
     public function assign(Request $request)
     {

@@ -51,9 +51,9 @@
                                         <td>{{ $supervisor->updated_at }}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                            </div>												
+                                            <a data-id="{{$supervisor->id}}" id="useredit" class="btn light btn-primary shadow btn-xs sharp mr-5" data-target="#edituser" data-toggle="modal"><i class="fa fa-pencil"></i></a>
+                                            <a href="/deleteuser/{{$supervisor->id}}" value="{{$supervisor->id}}" class="btn light btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                         </div>												
                                         </td>	
                                     </tr>
 
@@ -70,6 +70,8 @@
     </div>
 </div>
 @include('admin.addnewsupervisor')
+@include('blocks.editsupervisor')
+
 @endsection
 
 @section('scripts')
@@ -81,6 +83,32 @@
     <!-- Datatable -->
     <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="./js/plugins-init/datatables.init.js"></script>
+    <script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('body').on('click','#submit',function(event){
+            // event.preventDefault();
+            let id=$('#id').val();
+            let role=$('#role').val();
+            let dept=$('#department').val();
+            console.log(id);
+            console.log(role);
+            console.log(dept);
+            $.ajax({
+                url:'editsupervisor/'+id,
+                type:"POST",
+                data:{
+                    userrole_id:role,
+                    group_id:dept
+                }
+            })
+        })
+    });
+</script>
 	<script>
 		/*(function($) {
 			var table = $('#example5').DataTable({
