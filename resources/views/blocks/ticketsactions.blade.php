@@ -9,7 +9,7 @@
         <button aria-expanded="false" data-toggle="dropdown" class="btn btn-primary px-3 light dropdown-toggle" type="button">More
             <span class="caret"></span>
         </button>
-        <div class="dropdown-menu"> <a href="/changestatus" class="dropdown-item">Mark all as closed</a> 
+        <div class="dropdown-menu">
         <a href="javascript: void(0);" class="dropdown-item">Close All</a>
         <a href="javascript: void(0);" class="dropdown-item">Add Star</a> <a href="javascript: void(0);" class="dropdown-item">Mute</a>
         </div>

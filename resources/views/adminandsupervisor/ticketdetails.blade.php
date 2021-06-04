@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('headlinks')
-<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
 <link href="../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 <link href="../css/style.css" rel="stylesheet">
 @endsection

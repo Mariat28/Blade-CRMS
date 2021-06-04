@@ -1,9 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 
+@section('headlinks')
+<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+<link href="{{URL::asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+@endsection
 @section('content')
-        <div class="content-body">
+        <div class="content-body" style="margin-left:-20px">
             <div class="container-fluid">
-                <div class="page-titles">
+                <div class="page-titles" style="margin-top:-130px">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Tickets</a></li>
                         <li class="breadcrumb-item active"><a href="javascript:void(0)">Ticket Details</a></li>
@@ -31,7 +36,9 @@
                                                                 <h6 class="text-primary mb-0 mt-1">Sent By:{{$ticket->sender}}</h6>
                                                                 <p class="mb-0 mt-1">{{$ticket->created_at}}</p>
                                                             </div>
-                                                            <a href="/changestatus" class="btn btn-primary px-3 light  ml-2" title="Press to close ticket" data-placement="right" data-toggle="tooltip"><i class="fa fa-play mr-2"></i></a>
+                                                            <a href="/changestatus" data-id='{{$ticket->id}}' class="btn btn-primary px-3 light ml-2" id="close" data-onstyle="success" 
+                                                data-on="Open" data-offstyle="danger" data-off="Closed" title="Press to close ticket" data-placement="right" data-toggle="tooltip" {{$ticket->status_id?'open':''}}><i class="fa fa-pause"></i> </a>
+                                                
                                                             </div>
                                                         <hr>
                                                         <div class="media mb-2 mt-3">
@@ -107,19 +114,41 @@
 
 
         </div>
-        <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
-        <!--**********************************
-        Scripts
-    ***********************************-->
-        <!-- Required vendors -->
-        <script src="{{URL::asset('vendor/global/global.min.js')}}"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="{{URL::asset('js/custom.min.js')}}"></script>
-        <script src="{{URL::asset('js/deznav-init.js')}}"></script>
-        <script>
-        $(function () {$('[data-toggle="tooltip"]').tooltip()})
-        </script>
+
+@include('blocks.createticket')
+@endsection
+@section('scripts')
+<script src="../vendor/global/global.min.js"></script>
+<script src="../vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="../js/custom.min.js"></script>
+<script src="../js/deznav-init.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+       $(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#close').click(function() {
+            let statusid=1;
+            let ticket_id=$(this).data('id');
+            $.ajax({
+                type:"post",
+                dataType:'json',
+                url:"/changestatus",
+                data:{
+                    'status_id':statusid, 'id':ticket_id
+                }
+            })
+        });
+    })
+</script>
 @endsection

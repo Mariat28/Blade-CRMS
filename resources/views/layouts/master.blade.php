@@ -771,38 +771,55 @@
 			<div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
 					<li class="{{ (request()->is('dashboard') || request()->is('home')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{route('dashboard')}}" aria-expanded="false">
-							<i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
+							<i class="fas fa-chart-pie"></i>
 							<span class="nav-text">Dashboard</span>
 						</a>
 					</li>
-                    <li class="{{ (request()->is('tickets') || request()->is('closedtickets')||request()->is('ticketdetails*') || request()->is('opentickets') || request()->is('pendingtickets')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('tickets') }}" aria-expanded="false">
-                        <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
+					
+					<li class="{{ (request()->is('tickets') || request()->is('closedtickets')||request()->is('ticketdetails*') || request()->is('opentickets') || request()->is('pendingtickets')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('tickets') }}" aria-expanded="false">
+                        <i  class="fas fa-chart-pie"></i>
                         <span class="nav-text">Tickets</span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('viewagents') || request()->is('addagent')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('viewagents') }}" aria-expanded="false">
-                        <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
+				<li data-toggle="collapse" data-target="#users" class="ml-1 has-arrow ai-icon {{ (request()->is('viewagents') || request()->is('addagent'))|| (request()->is('viewsupervisors')) ? 'mm-active' : '' }}">
+                  <a><i class="fas fa-chart-pie"></i>Users</a>
+                </li>  
+                <ul class="sub-menu collapse" id="users">
+				<li class="{{ (request()->is('viewagents') || request()->is('addagent')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('viewagents') }}" aria-expanded="false">
+                        <i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Agents</span>
                         </a>
                     </li>
                     @if(Auth::user()->userrole_id == 1)
                         <li class="{{ (request()->is('viewsupervisors')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('viewsupervisors') }}" aria-expanded="false">
-                            <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
+                            <i class="fas fa-chart-pie"></i>
                             <span class="nav-text">Supervisors</span>
                             </a>
                         </li>
                     @endif
+                </ul>
+                    
+                   
                     <li class="{{ (request()->is('reports') || request()->is('ticketsvolume') || request()->is('agentsperformance') || request()->is('agentperformancedetails/*') || request()->is('departmentsperformance')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('reports') }}" aria-expanded="false">
-                        <i class="flaticon-381-netw		orking<i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Reports</span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('settings') || request()->is('settingsusers') || request()->is('settingssupportchannels')|| request()->is('settingsgeneral')) ? 'mm-active' : '' }}"><a class="has-arrow ai-icon" href="{{ route('settings') }}" aria-expanded="false">
-                        <i class="flaticon-381-networking<i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-chart-pie"></i>
                         <span class="nav-text">Settings</span>
                         </a>
                     </li>
 				</ul>
+				<!-- <div class="plus-box">
+					<p class="fs-16 font-w500 mb-1">Go to Admin Manager </p>
+					<a class="text-white fs-26" href="javascript:;"><i class="las la-long-arrow-alt-right"></i></a>
+				</div> -->
+				<div class="copyright mt-5 pt-5">
+					<p class="fs-14 font-w200"><strong class="font-w400">Help Desk Admin Dashboard</strong> © 2020 All
+						Rights Reserved</p>
+					<p>Made with <i class="fa fa-heart text-danger"></i> by Help Desk</p>
+				</div>
 			</div>
 		</div>
 		<!--**********************************
