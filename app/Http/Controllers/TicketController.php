@@ -65,7 +65,24 @@ class TicketController extends Controller
         $opentickets = Ticket::where('status_id', 3)->get();
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets', 'departments'));
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets', 'departments', 'departmentTickets'));
     }
 
 
@@ -74,7 +91,24 @@ class TicketController extends Controller
         $closedtickets = Ticket::where('status_id', 1)->get();
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'tickets', 'departments'));
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'tickets', 'departments', 'departmentTickets'));
     }
 
 
@@ -84,7 +118,24 @@ class TicketController extends Controller
         $tickets = Ticket::where('status_id', 2)->get();
         $newtickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.pendingtickets', compact('tickets', 'newtickets', 'departments'));
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+        return view('adminandsupervisor.pendingtickets', compact('tickets', 'newtickets', 'departments', 'departmentTickets'));
     }
 
 
