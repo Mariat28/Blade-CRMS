@@ -71,12 +71,10 @@ class TicketController extends Controller
         $opentickets = Ticket::where('status_id', 3)->get();
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-<<<<<<< HEAD
         $prioritylist=TicketPriority::all();
         $pendingtickets = Ticket::where('status_id', 2)->get();
         $closedtickets = Ticket::where('status_id', 1)->get();
         return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets','pendingtickets','closedtickets', 'departments','prioritylist'));
-=======
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -95,7 +93,6 @@ class TicketController extends Controller
             }
         }
         return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets', 'departments', 'departmentTickets'));
->>>>>>> 19a05b03a457d3fee43dff08a0fe991c39944d6a
     }
 
 
