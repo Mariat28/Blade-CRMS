@@ -24,37 +24,40 @@
                     <div class="email-right-box ml-0 ml-sm-4 ml-sm-0">
 
                         <!-- @include('blocks.ticketsactions') -->
-                        
+
                         <div class="email-list mt-3">
-                            @if(count($closedtickets)<=0)
-                            <div class="subject">No closed tickets!!!</div>
-                            @endif
-                            @foreach ($closedtickets as $ticket)
-                                <div class="message">
-                                    <div>
-                                        <div class="d-flex message-single">
-                                            <div class="pl-1 align-self-center">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="checkbox7">
-                                                    <label class="custom-control-label" for="checkbox7"></label>
-                                                </div>
-                                            </div>
-                                            <div class="ml-2">
-                                                <button class="border-0 bg-transparent align-middle p-0"><i
-                                                        class="fa fa-star" aria-hidden="true"></i></button>
-                                            </div>
+                            @if(count($closedtickets)<=0) <div class="subject">No closed tickets!!!</div>
+                        @endif
+                        @foreach ($closedtickets as $ticket)
+                        <div class="message">
+                            <div>
+                                <div class="d-flex message-single">
+                                    <div class="pl-1 align-self-center">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="checkbox7">
+                                            <label class="custom-control-label" for="checkbox7"></label>
                                         </div>
-                                        <a href="/closedticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
-                                            <div class="subject">{{ Str::of($ticket->body)->limit(120) }}</div>
-                                            <div class="date">{{$ticket->created_at}}</div>
-                                        </a>
+                                    </div>
+                                    <div class="ml-2">
+                                        <button class="border-0 bg-transparent align-middle p-0"><i class="fa fa-star" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
-                                @endforeach
+                                <a href="/closedticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
+                                    <div class="subject">{{ Str::of($ticket->body)->limit(120) }}</div>
+                                    @if($ticket->priority_id == 1)
+                                    <div class="date"><button class="btn btn-sm btn-danger light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($ticket->priority_id == 2)
+                                    <div class="date"><button class="btn btn-sm btn-primary light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($ticket->priority_id == 3)
+                                    <div class="date"><button class="btn btn-sm btn-warning light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @endif
+                                </a>
+                            </div>
                         </div>
-                        <!-- panel pagination -->
-                        <!-- <div class="row mt-4">
+                        @endforeach
+                    </div>
+                    <!-- panel pagination -->
+                    <!-- <div class="row mt-4">
                             <div class="col-12 pl-3">
                                 <nav>
                                     <ul
@@ -77,11 +80,11 @@
                                 </nav>
                             </div>
                         </div> -->
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @include('blocks.createticket')

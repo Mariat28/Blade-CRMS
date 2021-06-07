@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\User;
+use App\Models\TicketPriority;
 use App\Models\Reply;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class TicketController extends Controller
             'subject' => $req->subject,
             'source' => $req->source,
             'created_by' => Auth::user()->name,
-            'priority_id' => 3,
+            'priority_id' => $req->priority,
             'duration' => 0,
             'status_id' => null,
             'user_id' => null,
@@ -35,8 +36,12 @@ class TicketController extends Controller
     {
         // $ticket=DB::select('select*from tickets');
         $tickets = Ticket::where('status_id', null)->get();
+        $prioritylist=TicketPriority::all();
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.tickets', compact('tickets', 'departments'));
+        return view('adminandsupervisor.tickets', compact('tickets', 'closedtickets','departments','pendingtickets','prioritylist','opentickets'));   
     }
 
 
@@ -45,7 +50,10 @@ class TicketController extends Controller
         $opentickets = Ticket::where('status_id', 3)->get();
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets', 'departments'));
+        $prioritylist=TicketPriority::all();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets','pendingtickets','closedtickets', 'departments','prioritylist'));
     }
 
 
@@ -54,17 +62,23 @@ class TicketController extends Controller
         $closedtickets = Ticket::where('status_id', 1)->get();
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'tickets', 'departments'));
+        $prioritylist=TicketPriority::all();
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'opentickets','pendingtickets','tickets', 'departments','prioritylist'));
     }
 
 
     //pending tickets
     public function pendingticket()
     {
-        $tickets = Ticket::where('status_id', 2)->get();
-        $newtickets = Ticket::where('status_id', null)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.pendingtickets', compact('tickets', 'newtickets', 'departments'));
+        $prioritylist=TicketPriority::all();
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        return view('adminandsupervisor.pendingtickets', compact('tickets','opentickets','closedtickets', 'pendingtickets', 'prioritylist','departments'));
     }
 
 

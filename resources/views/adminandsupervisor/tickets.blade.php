@@ -26,39 +26,43 @@
                         @include('blocks.ticketsactions')
 
                         <div class="email-list mt-3">
-                        @if(count($tickets)<=0)
-                        <div class="subject">All tickets have been assigned!!!</div>
+                            @if(count($tickets)<=0) <div class="subject">All tickets have been assigned!!!</div>
                         @endif
                         @foreach ($tickets as $newticket)
-                            <div class="message">
-                                <div>
-                                    <div class="d-flex message-single">
-                                        <div class="pl-1 align-self-center">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="checkbox7">
-                                                <label class="custom-control-label" for="checkbox7"></label>
-                                            </div>
-                                        </div>
-                                        <div class="ml-2">
-                                            <button class="border-0 bg-transparent align-middle p-0"><i
-                                                    class="fa fa-star" aria-hidden="true"></i></button>
+                        <div class="message">
+                            <div>
+                                <div class="d-flex message-single">
+                                    <div class="pl-1 align-self-center">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="checkbox7">
+                                            <label class="custom-control-label" for="checkbox7"></label>
                                         </div>
                                     </div>
-                                    <a href="/ticketdetails/{{$newticket->id}}" class="col-mail col-mail-2">
-                                        <div class="subject">{{$newticket->body}}</div>
-                                        <div class="date">{{$newticket->created_at}}</div>
-                                    </a>
+                                    <div class="ml-2">
+                                        <button class="border-0 bg-transparent align-middle p-0"><i class="fa fa-star" aria-hidden="true"></i></button>
+                                    </div>
                                 </div>
-                            </div>
-                            @endforeach
+                                <a href="/ticketdetails/{{$newticket->id}}" class="col-mail col-mail-2">
+                                    <div class="subject">{{ Str::of($newticket->body)->limit(80) }}</div>
+                                    @if($newticket->priority_id == 1)
+                                    <div class="date"><button class="btn btn-sm btn-danger light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($newticket->priority_id == 2)
+                                    <div class="date"><button class="btn btn-sm btn-primary light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($newticket->priority_id == 3)
+                                    <div class="date"><button class="btn btn-sm btn-warning light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                    @endif
 
+                                </a>
+                            </div>
                         </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @include('blocks.createticket')

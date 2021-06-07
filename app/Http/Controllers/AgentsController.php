@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\User;
+use App\Models\Ticket;
 use App\Models\Userrole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,8 @@ class AgentsController extends Controller
             $groups = Group::where('company_id', Auth::user()->company_id)->get();
             $roles = Userrole::all();
             $users = User::all();
-            return view('adminandsupervisor.agents', compact(['agents', 'groups', 'roles']));
+            $tickets = Ticket::where('status_id', null)->get();
+            return view('adminandsupervisor.agents', compact(['agents', 'groups', 'roles','tickets']));
 
         }
         

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\User;
+use App\Models\Ticket;
 use App\Models\Userrole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,8 @@ class SupervisorsController extends Controller
             $groups = Group::where('company_id', Auth::user()->company_id)->get();
             $roles = Userrole::all();
             $supervisors=User::where('userrole_id', 2)->get();
-        return view('admin.supervisors', compact('supervisors','roles','groups'));
+            $tickets = Ticket::where('status_id', null)->get();
+        return view('admin.supervisors', compact('supervisors','roles','groups','tickets'));
         }
         //redirect the user to the previous page
         else

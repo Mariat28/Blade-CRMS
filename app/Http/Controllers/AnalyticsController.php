@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ticket;
 
 class AnalyticsController extends Controller
 {
@@ -13,6 +14,7 @@ class AnalyticsController extends Controller
 
     public function index()
     {
-        return view('adminandsupervisor.analytics');
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('adminandsupervisor.analytics',compact('tickets'));
     }
 }

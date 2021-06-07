@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers;
 use App\Models\User;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 use App\Models\Userrole;
@@ -19,7 +20,8 @@ class RegisterController extends Controller
     public function index()
     {
         if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
-            return view('admin.addsupervisor');
+            $tickets = Ticket::where('status_id', null)->get();
+            return view('admin.addsupervisor',compact('tickets'));
         }
         //redirect the user to the previous page
         else

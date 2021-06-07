@@ -13,6 +13,12 @@
 @section('content')
 <!-- row -->
 <div class="container-fluid">
+<div class="page-titles">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Users</a></li>
+            <li class="breadcrumb-item active"><a href="/viewsupervisors">Supervisors</a></li>
+        </ol>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">

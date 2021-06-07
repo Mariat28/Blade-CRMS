@@ -19,21 +19,23 @@ class ReportsController extends Controller
 
     public function index()
     {
-        return view('adminandsupervisor.reports');
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('adminandsupervisor.reports',compact('tickets'));
     }
 
     public function ticketsVolume()
     {
-        return view('adminandsupervisor.ticketsvolume');
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('adminandsupervisor.ticketsvolume',compact('tickets'));
     }
 
     public function agentsPerformance()
     {
         $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
-
+        $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('id', Auth::user()->company_id)->get();
 
-        return view('adminandsupervisor.agentsperformance', compact(['agents', 'departments']));
+        return view('adminandsupervisor.agentsperformance', compact(['agents', 'departments','tickets']));
     }
 
     public function agentPerformanceDetails($agentId)
@@ -51,6 +53,7 @@ class ReportsController extends Controller
 
     public function departmentsPerformance()
     {
-        return view('adminandsupervisor.departmentsperformance');
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('adminandsupervisor.departmentsperformance',compact('tickets'));
     }
 }

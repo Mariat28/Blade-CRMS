@@ -37,9 +37,9 @@
 				<div class="form-group">
 					<label>Ticket priority</label>
 					<select class="form-control" id="ticketpriority" name="priority">
-					<option>low</option>
-					<option>Medium</option>
-					<option>High</option>
+					@foreach ($prioritylist as $priority)
+					<option value="{{$priority->id}}">{{$priority->name}}</option>
+					@endforeach
 					</select>
 				</div>
 				<div class="form-group">

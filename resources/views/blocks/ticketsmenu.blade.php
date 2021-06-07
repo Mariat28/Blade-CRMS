@@ -9,13 +9,16 @@
                 class="badge badge-primary badge-sm float-right">{{count($tickets)}}</span> 
         </a>      
         <a href="/pendingtickets" class="list-group-item {{(request()->is('pendingtickets')) ? 'active' : ''}}"><i
-            class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Pending
+            class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Pending<span
+                class="badge badge-primary badge-sm float-right">{{count($pendingtickets)}}</span> 
         </a>
         <a href="/opentickets" class="list-group-item {{(request()->is('opentickets')||request()->is('openticketdetails*')) ? 'active' : ''}}"><i
-            class="fa fa-paper-plane font-18 align-middle mr-2"></i>Open 
+            class="fa fa-paper-plane font-18 align-middle mr-2"></i>Open <span
+                class="badge badge-primary badge-sm float-right">{{count($opentickets)}}</span> 
         </a>
         <a href="/closedtickets" class="list-group-item {{(request()->is('closedtickets')||request()->is('closedticketdetails*')) ? 'active' : ''}}""><i
-            class="fa fa-trash font-18 align-middle mr-2"></i>Closed
+            class="fa fa-trash font-18 align-middle mr-2"></i>Closed<span
+                class="badge badge-primary badge-sm float-right">{{count($closedtickets)}}</span> 
         </a>
     </div>
     <div class="intro-title d-flex justify-content-between">
