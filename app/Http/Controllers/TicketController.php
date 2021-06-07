@@ -36,7 +36,27 @@ class TicketController extends Controller
         // $ticket=DB::select('select*from tickets');
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.tickets', compact('tickets', 'departments'));
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+
+        #echo json_encode($departmentTickets);
+
+        return view('adminandsupervisor.tickets', compact('tickets', 'departments','departmentTickets'));
     }
 
 
