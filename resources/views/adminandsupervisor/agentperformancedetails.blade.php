@@ -100,10 +100,10 @@
                     </thead>
                     <tbody>
                         @foreach($tickets as $ticket)
-                        <tr class="clickable-row" data-href='./agent reply closed.html'>
+                            <tr class="clickable-row" data-href="{{route('ticketview', ['ticketid'=> $ticket->id])}}">
                             <td>#{{$ticket->id}}</td>
                             <td>{{$ticket->created_at}}</td>
-                            <td class="wspace-no">How do I place a custom order?</td>
+                            <td class="wspace-no">{{ Str::of($ticket->body)->limit(40) }}</td>
                             <td>{{$ticket->updated_at}}</td>
                             <td>{{ $group->name ??  'Uncategorized' }}</td>
                             @foreach($statuses as $status)

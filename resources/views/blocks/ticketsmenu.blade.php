@@ -26,10 +26,12 @@
         <i class="icon-arrow-down" aria-hidden="true"></i>
     </div>
     <div class="mail-list mt-4">
-        @foreach($departments as $department)
+        @foreach($departmentTickets as $department)
         <a href="#" class="list-group-item"><span class="icon-warning"><i
             class="fa fa-circle" aria-hidden="true"></i></span>
-            {{$department->name}} 
+            {{$department['name']}} 
+            <span
+                class="badge badge-primary badge-sm float-right">{{$department['tickets']}}</span>
         </a>
         @endforeach
     </div>

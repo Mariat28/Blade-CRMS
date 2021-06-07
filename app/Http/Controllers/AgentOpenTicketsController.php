@@ -16,6 +16,7 @@ class AgentOpenTicketsController extends Controller
     }
 
     public function index(){
-        return view('agent.opentickets')->with('group', Group::find(Auth::user()->group_id));
+        
+        return view('agent.opentickets');
     }
 }

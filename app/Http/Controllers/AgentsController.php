@@ -17,6 +17,11 @@ class AgentsController extends Controller
         $this->middleware(['auth']);
     }
 
+    public function index()
+    {
+        return view('adminandsupervisor.addagent');
+    }
+
     public function viewAgents()
     {
         if (Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1) {
@@ -40,11 +45,6 @@ class AgentsController extends Controller
     public function editagent($id, Request $request){
        User::where('id',$id)->update(['userrole_id'=>$request->userrole_id, 'group_id'=>$request->group_id]);
         return back();
-    }
-
-    public function index()
-    {
-        return view('adminandsupervisor.addagent');
     }
 
     public function addAgent(Request $request)

@@ -9,8 +9,6 @@ use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndexPageController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ManagerCompanyController;
 use App\Http\Controllers\ManagerViewAdminisController;
 use App\Http\Controllers\ManagerViewSubscriptionsController;
@@ -21,8 +19,6 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SupervisorsController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\ViewAgentsController;
-use App\Http\Controllers\ViewSupervisorsController;
 use App\Http\Controllers\ViewTicketController;
 use Illuminate\Support\Facades\Route;
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Ticket;
+use App\Models\TicketPriority;
 use App\Models\TicketStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,18 +20,23 @@ class IndexPageController extends Controller
     public function index()
     {
         if(Auth::user()->userrole_id == 3){
-            $userid = Auth::user()->id;
             $group = Group::find(Auth::user()->group_id);
             $tickets = Auth::user()->tickets;
-            return view('agent.index')->with('tickets', $tickets)->with('group', $group);
+            $group = Group::find(Auth::user()->group_id);
+            $ticketStatuses = TicketStatus::all();
+            $ticketPriorities = TicketPriority::all();
+            return view('agent.index', compact(['tickets', 'group', 'ticketStatuses', 'ticketPriorities']));
             //Ticket::orderBy('id','desc')->paginate(10);
         }
-        elseif(Auth::user()->userrole_id == 1 or Auth::user()->userrole_id == 2)
+        elseif(Auth::user()->userrole_id == 1 || Auth::user()->userrole_id == 2)
         {
-            return view('adminandsupervisor.dashboard');
+            return redirect()->route('dashboard');
         }
-        elseif(Auth::user()->userrole_id == 1 or Auth::user()->userrole_id == 4){
-            return view('manager.index');
+        elseif(Auth::user()->userrole_id == 4){
+            return view('manager.index', compact(['tickets']));
+        }
+        else{
+            return back();
         }
     }
 }
