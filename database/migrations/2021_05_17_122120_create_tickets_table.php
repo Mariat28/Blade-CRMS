@@ -17,9 +17,9 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->longText('body');
             $table->unsignedBigInteger('user_id')->index()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('status_id')->index()->nullable();
-            $table->foreign('status_id')->references('id')->on('ticket_statuses');
+            $table->foreign('status_id')->references('id')->on('ticket_statuses')->onDelete('cascade');
             $table->string('subject');
             $table->string('source')->nullable();
             $table->integer('duration')->nullable();

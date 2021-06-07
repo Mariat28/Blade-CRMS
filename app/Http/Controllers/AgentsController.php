@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\User;
+use App\Models\Userrole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,29 +23,36 @@ class AgentsController extends Controller
 
     public function viewAgents()
     {
-        if(Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1){
-            $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
-            
-            $groups = Group::where('company_id', Auth::user()->company_id)->get();
+        if (Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1) {
 
-            return view('adminandsupervisor.agents', compact(['agents', 'groups']));
+            $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
+            $groups = Group::where('company_id', Auth::user()->company_id)->get();
+            $roles = Userrole::all();
+            $users = User::all();
+            return view('adminandsupervisor.agents', compact(['agents', 'groups', 'roles']));
+
         }
+        
         //redirect the user to the previous page
-        else
-        {
+        else {
             //redirect the user to the previous page
             return back();
         }
     }
+    //edit user details
+    public function editagent($id, Request $request){
+       User::where('id',$id)->update(['userrole_id'=>$request->userrole_id, 'group_id'=>$request->group_id]);
+        return back();
+    }
 
     public function addAgent(Request $request)
     {
-        $this->validate($request,[
-            'name'=> 'required',
-            'username'=> 'required',
-            'email'=> 'required|email|max:255',
-            'phonenumber'=> 'required',
-            'password'=> 'required',
+        $this->validate($request, [
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email|max:255',
+            'phonenumber' => 'required',
+            'password' => 'required',
         ]);
 
         User::create([
@@ -53,7 +61,7 @@ class AgentsController extends Controller
             'userrole_id' => 3,
             'company_id' => Auth::user()->company_id,
             'email' => $request->email,
-            'phonenumber'=> $request->phonenumber,
+            'phonenumber' => $request->phonenumber,
             'password' => Hash::make($request->password),
         ]);
 

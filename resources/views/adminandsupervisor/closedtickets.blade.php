@@ -23,7 +23,7 @@
 
                     <div class="email-right-box ml-0 ml-sm-4 ml-sm-0">
 
-                        @include('blocks.ticketsactions')
+                        <!-- @include('blocks.ticketsactions') -->
                         
                         <div class="email-list mt-3">
                             @if(count($closedtickets)<=0)
@@ -45,7 +45,7 @@
                                                         class="fa fa-star" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
-                                        <a href="/openticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
+                                        <a href="/closedticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
                                             <div class="subject">{{ Str::of($ticket->body)->limit(120) }}</div>
                                             <div class="date">{{$ticket->created_at}}</div>
                                         </a>

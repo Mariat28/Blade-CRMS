@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group @error('password') input-danger-o @enderror">
                             <label class="mb-1"><strong>Password</strong></label>
-                            <input type="text" class="form-control" value="" name="password" name="password">
+                            <input type="password" class="form-control" value="" name="password" name="password">
                             @error('password')
                             <p class="text-danger text-sm">{{ $message }}</p>
                             @enderror

@@ -12,20 +12,20 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
-    public function addticket(Request $req){
+    public function addticket(Request $req)
+    {
         Ticket::create([
             'body' => $req->description,
             'subject' => $req->subject,
             'source' => $req->source,
             'created_by' => Auth::user()->name,
-            'priority_id'=> 3,
+            'priority_id' => 3,
             'duration' => 0,
-            'status_id'=>null,
+            'status_id' => null,
             'user_id' => null,
         ]);
-        
-        return back();
 
+        return back();
     }
     /**
      * @return \Illuminate\Http\Response
@@ -36,95 +36,125 @@ class TicketController extends Controller
         // $ticket=DB::select('select*from tickets');
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.tickets',compact('tickets', 'departments'));
+        return view('adminandsupervisor.tickets', compact('tickets', 'departments'));
     }
 
 
     public function openticket()
     {
-    $tickets = Ticket::where('status_id', 3)->get();
-    $opentickets=Ticket::where('status_id', null)->get();
-    $departments = Group::where('company_id', Auth::user()->company_id)->get();
-    return view('adminandsupervisor.opentickets',compact('tickets','opentickets','departments'));
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $tickets = Ticket::where('status_id', null)->get();
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();
+        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets', 'departments'));
     }
 
 
     public function closedticket()
     {
         $closedtickets = Ticket::where('status_id', 1)->get();
-        $tickets =Ticket::where('status_id', null)->get();
+        $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.closedtickets',compact('closedtickets','tickets', 'departments'));
-    } 
-     
-    
+        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'tickets', 'departments'));
+    }
+
+
     //pending tickets
     public function pendingticket()
     {
         $tickets = Ticket::where('status_id', 2)->get();
-        $newtickets =Ticket::where('status_id', null)->get();
+        $newtickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-         return view('adminandsupervisor.pendingtickets',compact('tickets','newtickets', 'departments'));
+        return view('adminandsupervisor.pendingtickets', compact('tickets', 'newtickets', 'departments'));
     }
-     
+
 
     //  retrieve one ticket's details
-    public function ticketdetails($id, Request $req){
-        $data=Ticket::find($id);
-        $agents =User::where('userrole_id', 3)->get();
-        $tickets=Ticket::where('status_id', null)->get();
+    public function ticketdetails($id, Request $req)
+    {
+        $data = Ticket::find($id);
+        $agents = User::where('userrole_id', 3)->get();
+        $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.ticketdetails',compact('data','agents','tickets', 'departments'));
+        return view('adminandsupervisor.ticketdetails', compact('data', 'agents', 'tickets', 'departments'));
     }
 
 
     //retrieve openticketdetails
-    public function openticketdetails($id){
-         $ticket =Ticket::find($id);
-         $reply = Reply::where('ticket_id', $id)->first();
-         $comments = $ticket->comments;
-         $newtickets = Ticket::where('user_id', null)->get();
-         return view('openticketdetails',compact('ticket', 'reply', 'comments','newtickets'));
+    public function openticketdetails($id)
+    {
+        $ticket = Ticket::find($id);
+        $reply = Reply::where('ticket_id', $id)->first();
+        $comments = $ticket->comments;
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('openticketdetails', compact('ticket', 'reply', 'comments', 'tickets', 'departments'));
+    }
+    //retrieve closedticket details
+    public function closedticketdetails($id){
+        $ticket = Ticket::find($id);
+        $creator=User::where('id',$ticket->user_id)->get();
+        $reply =  Reply::where('ticket_id', $id)->get();
+        $comments = $ticket->comments;
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();
+        $tickets = Ticket::where('status_id', null)->get();
+        return view('adminandsupervisor.closedticketdetails', compact('ticket', 'reply','creator', 'comments', 'tickets', 'departments'));
+    
     }
 
 
     //reply to ticket
-    public function ticketreply(Request $req){
+    public function ticketreply(Request $req)
+    {
         Reply::create([
-            'reply'=> $req->reply,
-            'user_id'=> Auth::user()->id,
-            'ticket_id'=> $req->id,
+            'reply' => $req->reply,
+            'user_id' => Auth::user()->id,
+            'ticket_id' => $req->id,
         ]);
-        
+
         //update the ticket status to an open ticket
         Ticket::where('id', $req->id)->update(['status_id' => 3, 'user_id' => Auth::user()->id]);
-        
-        return back();
+        return redirect()->route('tickets');
     }
 
-// update ticket status
-public function changeTicketstatus(Request $request){
-    Ticket::where('id', $request->id)->update(['status_id' => '1']);
-return back();    
-}
-    public function assign(Request $request){
+    // update ticket status
+    public function changeTicketstatus(Request $request)
+    {
+      
+        Ticket::where('id', $request->id)->update(['status_id' => '1']);
+        Reply::create([
+            'reply'=>"Closed",
+            'user_id'=>Auth::user()->id,
+            'ticket_id'=>$request->id,
+        ]);
+        return redirect()->route('tickets');
+    }
+    //delete ticket
+    public function deleteticket($id){
+        Reply::where('ticket_id',$id)->delete();
+        Comment::where('ticket_id',$id)->delete();
+        Ticket::where('id', $id)->delete();
+        return redirect()->route('closedtickets');
+
+    }
+    public function assign(Request $request)
+    {
         $id = intval($request->agent);
         Ticket::where('id', $request->ticketid)->update(['user_id' => $id]);
-              //update the ticket status to a pending ticket
-              Ticket::where('id', $request->ticketid)->update(['status_id' => 2, 'user_id' => Auth::user()->id]);
-        return back();
-
+        //update the ticket status to a pending ticket
+        Ticket::where('id', $request->ticketid)->update(['status_id' => 2, 'user_id' => Auth::user()->id]);
+        return redirect()->route('tickets');
     }
-    
-    
+
+
     //comment on ticket
-    public function addcomment(Request $req){
+    public function addcomment(Request $req)
+    {
         Comment::create([
             'comment' => $req->comment,
             'ticket_id' => $req->id,
             'user_id' => Auth::user()->id,
         ]);
-        
+
         return back();
     }
 
@@ -158,8 +188,6 @@ return back();
      */
     public function show(Ticket $ticketid)
     {
-      
-        
     }
 
     /**

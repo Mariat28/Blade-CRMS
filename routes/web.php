@@ -53,6 +53,10 @@ Route::post('/addcommenttoticket',[AddCommentToTicketController::class, 'store']
 
 Route::get('/register',[RegisterController::class, 'index'])->name('register');
 Route::post('/register',[RegisterController::class, 'store']);
+//delete user
+Route::get('/deleteuser/{id}',[RegisterController::class,'deleteuser']);
+Route::post('/deleteuser/{id}',[RegisterController::class,'deleteuser']);
+
 
 
 
@@ -71,7 +75,11 @@ Route::get('/managerviewsubscriptions',[ManagerViewSubscriptionsController::clas
 Route::get('/viewsupervisors',[SupervisorsController::class, 'supervisors'])->name('viewsupervisors');
 Route::get('/addsupervisor',[SupervisorsController::class, 'index'])->name('addsupervisor');
 Route::post('/addsupervisor',[SupervisorsController::class, 'addsupervisor']);
+Route::post('/viewsupervisors',[SupervisorsController::class, 'supervisors'])->name('viewsupervisors');
 
+//edit supervisor
+Route::get('/editsupervisor/{id}',[SupervisorsController::class,'editsupervisor'])->name('editsupervisor');
+Route::post('/editsupervisor/{id}',[SupervisorsController::class,'editsupervisor']);
 
 
 ###ADMINISTRATOR AND SUPERVISOR ROUTING
@@ -86,8 +94,12 @@ Route::get('/departmentperformancedetails',[ReportsController::class, 'departmen
 Route::get('/analytics',[AnalyticsController::class, 'index'])->name('analytics');
 //Agents
 Route::get('/viewagents',[AgentsController::class, 'viewAgents'])->name('viewagents');
+Route::post('/viewagents',[AgentsController::class, 'viewAgents'])->name('viewagents');
 Route::get('/addagent',[AgentsController::class, 'index'])->name('addagent');
 Route::post('/addagent',[AgentsController::class, 'addAgent']);
+//edit agent
+Route::get('/edituser/{id}',[AgentsController::class,'editagent'])->name('edituser');
+Route::post('/edituser/{id}',[AgentsController::class,'editagent']);
 //Settings
 Route::get('/settings',[SettingsController::class, 'index'])->name('settings');
 Route::get('/settingsusers',[SettingsController::class, 'userslist'])->name('settingsusers');
@@ -104,7 +116,7 @@ Route::post('/registercompanysupervisor',[RegisterCompanyAdminController::class,
 ###AGENTS ROUTES
 Route::get('/ticketview/{ticketid}',[ViewTicketController::class, 'index'])->name('ticketview');
 Route::post('/agentticketreply',[AgentReplyTicketController::class, 'store'])->name('agentticketreply');
-Route::get('/agentopentickets/',[AgentOpenTicketsController::class, 'index'])->name('agentopentickets');
+Route::get('/agentopentickets',[AgentOpenTicketsController::class, 'index'])->name('agentopentickets');
 Route::get('/agentclosedtickets',[AgentClosedTicketsController::class, 'index'])->name('agentclosedtickets');
 
 
@@ -133,8 +145,13 @@ Route::get('/ticketdetails/{id}', [TicketController::class, 'ticketdetails'])->n
 Route::post('/ticketdetails/{id}', [TicketController::class, 'ticketreply'])->name('ticketdetails');
 //route for specific open ticket
 Route::get('/openticketdetails/{id}', [TicketController::class, 'openticketdetails'])->name('openticketdetails');
+//route for specific closed ticket details
+Route::get('/closedticketdetails/{id}', [TicketController::class,'closedticketdetails'])->name('closedticketdetails');
 //route to retrieve groups
 Route::get('/groups', [TicketController::class, 'assign'])->name('groups');
 //update ticket status
 Route::get('/changestatus',[TicketController::class,'changeTicketstatus'])->name('changestatus');
 Route::post('/changestatus',[TicketController::class,'changeTicketstatus'])->name('changestatus');
+//deleteticket
+Route::get('/deleteticket/{id}',[TicketController::class,'deleteticket'])->name('deleteticket');
+Route::post('/deleteticket/{id}',[TicketController::class,'deleteticket'])->name('deleteticket');

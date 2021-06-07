@@ -4,17 +4,17 @@
             <i class="fa fa-plus  align-middle mr-2"></i>Create New Ticket</a>
     </div>
     <div class="mail-list mt-4">
-        <a href="/tickets" class="list-group-item {{(request()->is('tickets')) ? 'active' : ''}}"><i
+        <a href="/tickets" class="list-group-item {{(request()->is('tickets')||request()->is('ticketdetails*')) ? 'active' : ''}}"><i
                 class="fa fa-inbox font-18 align-middle mr-2"></i> Unassigned <span
                 class="badge badge-primary badge-sm float-right">{{count($tickets)}}</span> 
         </a>      
         <a href="/pendingtickets" class="list-group-item {{(request()->is('pendingtickets')) ? 'active' : ''}}"><i
             class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Pending
         </a>
-        <a href="/opentickets" class="list-group-item {{(request()->is('opentickets')) ? 'active' : ''}}"><i
+        <a href="/opentickets" class="list-group-item {{(request()->is('opentickets')||request()->is('openticketdetails*')) ? 'active' : ''}}"><i
             class="fa fa-paper-plane font-18 align-middle mr-2"></i>Open 
         </a>
-        <a href="/closedtickets" class="list-group-item {{(request()->is('closedtickets')) ? 'active' : ''}}""><i
+        <a href="/closedtickets" class="list-group-item {{(request()->is('closedtickets')||request()->is('closedticketdetails*')) ? 'active' : ''}}""><i
             class="fa fa-trash font-18 align-middle mr-2"></i>Closed
         </a>
     </div>

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
+use App\Models\Userrole;
 
 class RegisterController extends Controller
 {
@@ -51,5 +52,12 @@ class RegisterController extends Controller
         return view('dashboard');
         
     }
+    //delete user
+    public function deleteuser($id, Request $request){
+     User::where('id', $id)->delete();
+     return back();
+
+    }
+    
         
 }
