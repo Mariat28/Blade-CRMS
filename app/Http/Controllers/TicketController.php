@@ -40,11 +40,7 @@ class TicketController extends Controller
         $opentickets = Ticket::where('status_id', 3)->get();
         $pendingtickets = Ticket::where('status_id', 2)->get();
         $closedtickets = Ticket::where('status_id', 1)->get();
-<<<<<<< HEAD
-        $departments = Group::where('company_id', Auth::user()->company_id)->get(); 
-=======
         $departments = Group::where('company_id', Auth::user()->company_id)->get();  
->>>>>>> 8f2bb234f668e26340b8b3c10fd5896b9af8720a
         $departmentTickets = [];
 
         foreach($departments as $department){
