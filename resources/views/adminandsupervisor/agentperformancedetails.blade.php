@@ -49,7 +49,7 @@
                                             </svg>
                                         </span>
                                         <div class="media-body ml-1">
-                                            <a href="./agent ressolved tickets.html">
+                                            <a href="#">
                                                 <p class="mb-0 fs-12">Ressolved Tickets</p>
                                                 <h4 class="mb-0 font-w600  fs-22">{{ count($ressolvedTickets) ?? 0 }}</h4>
                                             </a>
@@ -67,7 +67,7 @@
                                             </svg>
                                         </span>
                                         <div class="media-body ml-1">
-                                            <a href="./agent unressolved tickets.html">
+                                            <a href="#">
                                                 <p class="mb-0 fs-12">Pending Tickets</p>
                                                 <h4 class="mb-0 font-w600  fs-22">{{ count($pendingTickets) ?? 0 }}</h4>
                                             </a>

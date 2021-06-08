@@ -24,62 +24,62 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Technical</td>
                             <td>Project Code</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Financial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Managerial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Technical</td>
                             <td>Project Code</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Financial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Managerial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Technical</td>
                             <td>Project Code</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Financial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Managerial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Technical</td>
                             <td>Project Code</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Financial</td>
                             <td>Microsoft</td>
                         </tr>
-                        <tr class="clickable-row" data-href='./group performance details.html'>
+                        <tr class="clickable-row" data-href='#'>
                             <td>#0012451</td>
                             <td>Managerial</td>
                             <td>Microsoft</td>
