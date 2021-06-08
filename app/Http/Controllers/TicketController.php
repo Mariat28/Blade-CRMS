@@ -40,7 +40,11 @@ class TicketController extends Controller
         $opentickets = Ticket::where('status_id', 3)->get();
         $pendingtickets = Ticket::where('status_id', 2)->get();
         $closedtickets = Ticket::where('status_id', 1)->get();
+<<<<<<< HEAD
         $departments = Group::where('company_id', Auth::user()->company_id)->get(); 
+=======
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();  
+>>>>>>> 8f2bb234f668e26340b8b3c10fd5896b9af8720a
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -60,8 +64,7 @@ class TicketController extends Controller
         }
 
         #echo json_encode($departmentTickets);
-
-        return view('adminandsupervisor.tickets', compact('tickets', 'closedtickets','departments','departmentTickets', 'pendingtickets', 'opentickets'));
+        return view('adminandsupervisor.tickets', compact('tickets', 'closedtickets','departments','pendingtickets','prioritylist','opentickets','departmentTickets')); 
     }
 
 
@@ -73,7 +76,6 @@ class TicketController extends Controller
         $prioritylist=TicketPriority::all();
         $pendingtickets = Ticket::where('status_id', 2)->get();
         $closedtickets = Ticket::where('status_id', 1)->get();
-        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets','pendingtickets','closedtickets', 'departments','prioritylist'));
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -91,7 +93,8 @@ class TicketController extends Controller
                 array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
             }
         }
-        return view('adminandsupervisor.opentickets', compact('opentickets', 'tickets', 'departments', 'departmentTickets'));
+        return view('adminandsupervisor.opentickets', compact('opentickets', 'departmentTickets','tickets','pendingtickets','closedtickets', 'departments','prioritylist'));
+      
     }
 
 
@@ -103,7 +106,6 @@ class TicketController extends Controller
         $prioritylist=TicketPriority::all();
         $opentickets = Ticket::where('status_id', 3)->get();
         $pendingtickets = Ticket::where('status_id', 2)->get();
-        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'opentickets','pendingtickets','tickets', 'departments','prioritylist'));
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -121,7 +123,8 @@ class TicketController extends Controller
                 array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
             }
         }
-        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'tickets', 'departments', 'departmentTickets'));
+        return view('adminandsupervisor.closedtickets', compact('closedtickets', 'departmentTickets','opentickets','pendingtickets','tickets', 'departments','prioritylist'));
+
     }
 
 
@@ -134,7 +137,6 @@ class TicketController extends Controller
         $prioritylist=TicketPriority::all();
         $opentickets = Ticket::where('status_id', 3)->get();
         $closedtickets = Ticket::where('status_id', 1)->get();
-        return view('adminandsupervisor.pendingtickets', compact('tickets','opentickets','closedtickets', 'pendingtickets', 'prioritylist','departments'));
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -152,8 +154,8 @@ class TicketController extends Controller
                 array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
             }
         }
-        return view('adminandsupervisor.pendingtickets', compact('tickets', 'newtickets', 'departments', 'departmentTickets'));
-    }
+        return view('adminandsupervisor.pendingtickets', compact('closedtickets', 'departmentTickets','opentickets','pendingtickets','tickets', 'departments','prioritylist'));
+  }
 
 
     //  retrieve one ticket's details
@@ -163,7 +165,27 @@ class TicketController extends Controller
         $agents = User::where('userrole_id', 3)->get();
         $tickets = Ticket::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.ticketdetails', compact('data', 'agents', 'tickets', 'departments'));
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+        return view('adminandsupervisor.ticketdetails', compact('data', 'agents', 'departmentTickets','tickets', 'departments','opentickets','pendingtickets','closedtickets'));
     }
 
 
@@ -175,7 +197,27 @@ class TicketController extends Controller
         $comments = $ticket->comments;
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         $tickets = Ticket::where('status_id', null)->get();
-        return view('openticketdetails', compact('ticket', 'reply', 'comments', 'tickets', 'departments'));
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+        return view('openticketdetails', compact('ticket', 'reply', 'comments', 'tickets', 'departments','opentickets','closedtickets','pendingtickets','departmentTickets'));
     }
     //retrieve closedticket details
     public function closedticketdetails($id){
@@ -185,7 +227,27 @@ class TicketController extends Controller
         $comments = $ticket->comments;
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         $tickets = Ticket::where('status_id', null)->get();
-        return view('adminandsupervisor.closedticketdetails', compact('ticket', 'reply','creator', 'comments', 'tickets', 'departments'));
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        $departmentTickets = [];
+
+        foreach($departments as $department){
+            if ($department->users)
+            {
+                $totalTickets = 0;
+                foreach($department->users as $user)
+                {
+                    if($user->tickets)
+                    {
+                        $totalTickets += count($user->tickets);
+                    }
+                }
+
+                array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
+            }
+        }
+        return view('adminandsupervisor.closedticketdetails', compact('ticket', 'reply','creator', 'comments', 'tickets', 'departments','opentickets','closedtickets','pendingtickets','departmentTickets'));
     
     }
 
