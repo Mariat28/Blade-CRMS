@@ -3,6 +3,8 @@
 @section('headlinks')
 <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
 <link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">
 <link href="./css/style.css" rel="stylesheet">
 @endsection
 
@@ -66,6 +68,7 @@
 </div>
 
 @include('blocks.createticket')
+@include('blocks.notification')
 @endsection
 
 @section('scripts')

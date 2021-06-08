@@ -25,8 +25,9 @@ class TicketController extends Controller
             'status_id' => null,
             'user_id' => null,
         ]);
-
-        return back();
+            // session()->put('success','new ticket created');
+        return redirect('/tickets')->with("ticket_created","A new ticket has been created");
+       
     }
     /**
      * @return \Illuminate\Http\Response
