@@ -40,8 +40,7 @@ class TicketController extends Controller
         $opentickets = Ticket::where('status_id', 3)->get();
         $pendingtickets = Ticket::where('status_id', 2)->get();
         $closedtickets = Ticket::where('status_id', 1)->get();
-        $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        return view('adminandsupervisor.tickets', compact('tickets', 'closedtickets','departments','pendingtickets','prioritylist','opentickets'));   
+        $departments = Group::where('company_id', Auth::user()->company_id)->get(); 
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -62,7 +61,7 @@ class TicketController extends Controller
 
         #echo json_encode($departmentTickets);
 
-        return view('adminandsupervisor.tickets', compact('tickets', 'departments','departmentTickets'));
+        return view('adminandsupervisor.tickets', compact('tickets', 'closedtickets','departments','departmentTickets', 'pendingtickets', 'opentickets'));
     }
 
 
