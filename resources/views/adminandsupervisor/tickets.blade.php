@@ -28,9 +28,9 @@
                         @include('blocks.ticketsactions')
 
                         <div class="email-list mt-3">
-                            @if(count($tickets)<=0) <div class="subject">All tickets have been assigned!!!</div>
+                            @if(count($neededTickets) <= 0) <div class="subject">All tickets have been assigned!!!</div>
                         @endif
-                        @foreach ($tickets as $newticket)
+                        @foreach ($neededTickets as $ticket)
                         <div class="message">
                             <div>
                                 <div class="d-flex message-single">
@@ -44,14 +44,14 @@
                                         <button class="border-0 bg-transparent align-middle p-0"><i class="fa fa-star" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
-                                <a href="/ticketdetails/{{$newticket->id}}" class="col-mail col-mail-2">
-                                    <div class="subject">{{ Str::of($newticket->body)->limit(80) }}</div>
-                                    @if($newticket->priority_id == 1)
-                                    <div class="date"><button class="btn btn-sm btn-danger light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
-                                    @elseif($newticket->priority_id == 2)
-                                    <div class="date"><button class="btn btn-sm btn-primary light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
-                                    @elseif($newticket->priority_id == 3)
-                                    <div class="date"><button class="btn btn-sm btn-warning light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                <a href="/ticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
+                                    <div class="subject">{{ Str::of($ticket->body)->limit(80) }}</div>
+                                    @if($ticket->priority_id == 1)
+                                    <div class="date"><button class="btn btn-sm btn-danger light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($ticket->priority_id == 2)
+                                    <div class="date"><button class="btn btn-sm btn-primary light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($ticket->priority_id == 3)
+                                    <div class="date"><button class="btn btn-sm btn-warning light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
                                     @endif
 
                                 </a>

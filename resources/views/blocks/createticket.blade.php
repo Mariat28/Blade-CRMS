@@ -37,7 +37,7 @@
 				<div class="form-group">
 					<label>Ticket priority</label>
 					<select class="form-control" id="ticketpriority" name="priority">
-					@foreach ($prioritylist as $priority)
+					@foreach ($priorityList as $priority)
 					<option value="{{$priority->id}}">{{$priority->name}}</option>
 					@endforeach
 					</select>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Group;
+use App\Models\Issue;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Userrole;
@@ -19,11 +20,16 @@ class SupervisorsController extends Controller
     public function supervisors()
     {
         if(Auth::user()->userrole_id == 1){
-            $groups = Group::where('company_id', Auth::user()->company_id)->get();
+            //Fetch groups specific to this company
+            $departments = Group::where('company_id', Auth::user()->company_id)->get();
+            //Fetch all user roles
             $roles = Userrole::all();
-            $supervisors=User::where('userrole_id', 2)->get();
-            $tickets = Ticket::where('status_id', null)->get();
-        return view('admin.supervisors', compact('supervisors','roles','groups','tickets'));
+            //Fetch supervisors specific to this company
+            $supervisors= User::where('company_id', Auth::user()->company_id)->where('userrole_id', 2)->get();
+            //Fetch tickets specific to this company
+            $neededTickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', null)->get();
+
+        return view('admin.supervisors', compact('supervisors','roles','departments','neededTickets'));
         }
         //redirect the user to the previous page
         else
@@ -65,10 +71,17 @@ class SupervisorsController extends Controller
             'phonenumber'=> $request->phonenumber,
             'password' => Hash::make($request->password),
         ]);
-        $supervisors = User::where('userrole_id', 2)->get();
+        $roles = Userrole::all();
+        //Fetch departments specific to this company
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();
+        //Fetch supervisors specific to this company
+        $supervisors = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 2)->get();
+        //Fetch tickets specific to this company
+        $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', null)->get();
        
-        return view('admin.supervisors', compact('supervisors'));
+        return view('admin.supervisors', compact('supervisors','roles', 'departments', 'tickets'));
     }
+    
      //edit supervisor details
      public function editsupervisor($id, Request $request){
         User::where('id',$id)->update(['userrole_id'=>$request->userrole_id, 'group_id'=>$request->group_id]);

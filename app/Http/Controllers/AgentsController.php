@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Issue;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Userrole;
@@ -25,13 +26,25 @@ class AgentsController extends Controller
     public function viewAgents()
     {
         if (Auth::user()->userrole_id == 2 || Auth::user()->userrole_id == 1) {
-
+            //Fetch agents specific to this company
             $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
-            $groups = Group::where('company_id', Auth::user()->company_id)->get();
+
+            //Fetch departments specific to this company
+            $departments = Group::where('company_id', Auth::user()->company_id)->get();
+
+            //Fetch all roles specific to this company
             $roles = Userrole::all();
-            $users = User::all();
-            $tickets = Ticket::where('status_id', null)->get();
-            return view('adminandsupervisor.agents', compact(['agents', 'groups', 'roles','tickets']));
+            
+            //Fetch tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 5)->get();
+
+            return view('adminandsupervisor.agents', 
+                compact([
+                    'agents', 
+                    'departments', 
+                    'roles',
+                    'tickets'
+                ]));
 
         }
         
@@ -66,9 +79,18 @@ class AgentsController extends Controller
             'phonenumber' => $request->phonenumber,
             'password' => Hash::make($request->password),
         ]);
+        //Fetch agents specific to this company
+        $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
 
-        $agents = User::where('userrole_id', 3)->get();
-        $groups = Group::where('company_id', Auth::user()->company_id)->get();
-        return redirect()->route('viewagents', compact('agents', 'groups'));
+        //Fetch departments specific to this company
+        $departments = Group::where('company_id', Auth::user()->company_id)->get();
+
+        //Fetch tickets specific to this company
+        $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 5)->get();
+
+        //Fetch all roles specific to this company
+        $roles = Userrole::all();
+
+        return redirect()->route('viewagents', compact('agents', 'departments', 'roles', 'tickets'));
     }
 }

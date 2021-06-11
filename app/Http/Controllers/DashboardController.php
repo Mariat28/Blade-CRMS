@@ -16,8 +16,8 @@ class DashboardController extends Controller
     public function index()
     {
         if(Auth::user()->userrole_id == 1 || Auth::user()->userrole_id == 2){
-        $tickets = Ticket::where('status_id', null)->get();
-            return view('adminandsupervisor.dashboard',compact('tickets'));
+        $neededTickets = Ticket::where('status_id', null)->get();
+            return view('adminandsupervisor.dashboard',compact('neededTickets'));
         }
         //redirect the user to the previous page
         else

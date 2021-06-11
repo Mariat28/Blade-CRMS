@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Group;
+use App\Models\Issue;
 use App\Models\User;
 use App\Models\TicketPriority;
 use App\Models\Reply;
@@ -15,7 +16,7 @@ class TicketController extends Controller
 {
     public function addticket(Request $req)
     {
-        Ticket::create([
+        Issue::create([
             'body' => $req->description,
             'subject' => $req->subject,
             'source' => $req->source,
@@ -35,13 +36,43 @@ class TicketController extends Controller
 
     public function ticket()
     {
-        // $ticket=DB::select('select*from tickets');
-        $tickets = Ticket::where('status_id', null)->get();
-        $prioritylist=TicketPriority::all();
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $pendingtickets = Ticket::where('status_id', 2)->get();
-        $closedtickets = Ticket::where('status_id', 1)->get();
+        //Fetch all tickets specific to this company
+        $tickets = Issue::where('company_id', Auth::user()->company_id)->get();
+
+        //Fetch unassigned tickets specific to this company
+        $neededTickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 5)->get();
+
+        //Fetch tickets specific to this company
+        $priorityList=TicketPriority::all();
+
+        $closedTickets = 0;
+        $pendingTickets = 0;
+        $openTickets = 0;
+        $dueTickets = 0;
+        $unassignedTickets = 0;
+
+        foreach($tickets as $ticket){
+            if($ticket->status_id == 1){
+                $closedTickets += 1;
+            }
+            elseif($ticket->status_id == 2){
+                $pendingTickets += 1;
+            }
+            elseif($ticket->status_id == 3){
+                $openTickets += 1;
+            }
+            elseif($ticket->status_id == 4){
+                $dueTickets += 1;
+            }
+            elseif($ticket->status_id == 5){
+                $unassignedTickets += 1;
+            }
+        }
+
+        //Fetch departments specific to this company
         $departments = Group::where('company_id', Auth::user()->company_id)->get();  
+
+
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -61,19 +92,46 @@ class TicketController extends Controller
         }
 
         #echo json_encode($departmentTickets);
-        return view('adminandsupervisor.tickets', compact('tickets', 'closedtickets','departments','pendingtickets','prioritylist','opentickets','departmentTickets')); 
+        return view('adminandsupervisor.tickets', compact('neededTickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets')); 
     }
 
 
     public function openticket()
     {
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $tickets = Ticket::where('status_id', null)->get();
+        //Fetch open tickets specific to this company
+        $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 3)->get();
+        
+        //Fetch departments specific to this company
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        $prioritylist=TicketPriority::all();
-        $pendingtickets = Ticket::where('status_id', 2)->get();
-        $closedtickets = Ticket::where('status_id', 1)->get();
+
+        //Fetch priority list specific to this company
+        $priorityList=TicketPriority::all();
+
         $departmentTickets = [];
+
+        $closedTickets = 0;
+        $pendingTickets = 0;
+        $openTickets = 0;
+        $dueTickets = 0;
+        $unassignedTickets = 0;
+
+        foreach($tickets as $ticket){
+            if($ticket->status_id == 1){
+                $closedTickets += 1;
+            }
+            elseif($ticket->status_id == 2){
+                $pendingTickets += 1;
+            }
+            elseif($ticket->status_id == 3){
+                $openTickets += 1;
+            }
+            elseif($ticket->status_id == 4){
+                $dueTickets += 1;
+            }
+            elseif($ticket->status_id == 5){
+                $unassignedTickets += 1;
+            }
+        }
 
         foreach($departments as $department){
             if ($department->users)
@@ -97,12 +155,12 @@ class TicketController extends Controller
 
     public function closedticket()
     {
-        $closedtickets = Ticket::where('status_id', 1)->get();
-        $tickets = Ticket::where('status_id', null)->get();
+        $closedtickets = Issue::where('status_id', 1)->get();
+        $tickets = Issue::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         $prioritylist=TicketPriority::all();
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $opentickets = Issue::where('status_id', 3)->get();
+        $pendingtickets = Issue::where('status_id', 2)->get();
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -128,12 +186,12 @@ class TicketController extends Controller
     //pending tickets
     public function pendingticket()
     {
-        $pendingtickets = Ticket::where('status_id', 2)->get();
-        $tickets = Ticket::where('status_id', null)->get();
+        $pendingtickets = Issue::where('status_id', 2)->get();
+        $tickets = Issue::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         $prioritylist=TicketPriority::all();
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $closedtickets = Ticket::where('status_id', 1)->get();
+        $opentickets = Issue::where('status_id', 3)->get();
+        $closedtickets = Issue::where('status_id', 1)->get();
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -158,13 +216,13 @@ class TicketController extends Controller
     //  retrieve one ticket's details
     public function ticketdetails($id, Request $req)
     {
-        $data = Ticket::find($id);
+        $data = Issue::find($id);
         $agents = User::where('userrole_id', 3)->get();
-        $tickets = Ticket::where('status_id', null)->get();
+        $tickets = Issue::where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $pendingtickets = Ticket::where('status_id', 2)->get();
-        $closedtickets = Ticket::where('status_id', 1)->get();
+        $opentickets = Issue::where('status_id', 3)->get();
+        $pendingtickets = Issue::where('status_id', 2)->get();
+        $closedtickets = Issue::where('status_id', 1)->get();
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -189,14 +247,14 @@ class TicketController extends Controller
     //retrieve openticketdetails
     public function openticketdetails($id)
     {
-        $ticket = Ticket::find($id);
+        $ticket = Issue::find($id);
         $reply = Reply::where('ticket_id', $id)->first();
         $comments = $ticket->comments;
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        $tickets = Ticket::where('status_id', null)->get();
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $pendingtickets = Ticket::where('status_id', 2)->get();
-        $closedtickets = Ticket::where('status_id', 1)->get();
+        $tickets = Issue::where('status_id', null)->get();
+        $opentickets = Issue::where('status_id', 3)->get();
+        $pendingtickets = Issue::where('status_id', 2)->get();
+        $closedtickets = Issue::where('status_id', 1)->get();
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -218,15 +276,15 @@ class TicketController extends Controller
     }
     //retrieve closedticket details
     public function closedticketdetails($id){
-        $ticket = Ticket::find($id);
+        $ticket = Issue::find($id);
         $creator=User::where('id',$ticket->user_id)->get();
         $reply =  Reply::where('ticket_id', $id)->get();
         $comments = $ticket->comments;
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        $tickets = Ticket::where('status_id', null)->get();
-        $opentickets = Ticket::where('status_id', 3)->get();
-        $pendingtickets = Ticket::where('status_id', 2)->get();
-        $closedtickets = Ticket::where('status_id', 1)->get();
+        $tickets = Issue::where('status_id', null)->get();
+        $opentickets = Issue::where('status_id', 3)->get();
+        $pendingtickets = Issue::where('status_id', 2)->get();
+        $closedtickets = Issue::where('status_id', 1)->get();
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -259,7 +317,7 @@ class TicketController extends Controller
         ]);
 
         //update the ticket status to an open ticket
-        Ticket::where('id', $req->id)->update(['status_id' => 3, 'user_id' => Auth::user()->id]);
+        Issue::where('id', $req->id)->update(['status_id' => 3, 'user_id' => Auth::user()->id]);
         return redirect()->route('tickets');
     }
 
@@ -267,7 +325,7 @@ class TicketController extends Controller
     public function changeTicketstatus(Request $request)
     {
       
-        Ticket::where('id', $request->id)->update(['status_id' => '1']);
+        Issue::where('id', $request->id)->update(['status_id' => '1']);
         Reply::create([
             'reply'=>"Closed",
             'user_id'=>Auth::user()->id,
@@ -279,16 +337,16 @@ class TicketController extends Controller
     public function deleteticket($id){
         Reply::where('ticket_id',$id)->delete();
         Comment::where('ticket_id',$id)->delete();
-        Ticket::where('id', $id)->delete();
+        Issue::where('id', $id)->delete();
         return redirect()->route('closedtickets');
 
     }
     public function assign(Request $request)
     {
         $id = intval($request->agent);
-        Ticket::where('id', $request->ticketid)->update(['user_id' => $id]);
+        Issue::where('id', $request->ticketid)->update(['user_id' => $id]);
         //update the ticket status to a pending ticket
-        Ticket::where('id', $request->ticketid)->update(['status_id' => 2, 'user_id' => Auth::user()->id]);
+        Issue::where('id', $request->ticketid)->update(['status_id' => 2, 'user_id' => Auth::user()->id]);
         return redirect()->route('tickets');
     }
 
