@@ -46,8 +46,14 @@
                                             </div>
                                         </div>
                                         <a href="/ticketdetails/{{$newticket->id}}" class="col-mail col-mail-2">
-                                            <div class="subject">{{$newticket->body}}</div>
-                                            <div class="date">{{$newticket->created_at}}</div>
+                                        <div class="subject">{{ Str::of($newticket->body)->limit(100) }}</div>
+                                        @if($newticket->priority_id == 1)
+                                    <div class="date"><button class="btn btn-sm btn-danger light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($newticket->priority_id == 2)
+                                    <div class="date"><button class="btn btn-sm btn-primary light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($newticket->priority_id == 3)
+                                    <div class="date"><button class="btn btn-sm btn-warning light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @endif
                                         </a>
                                     </div>
                                 </div>

@@ -43,13 +43,13 @@
                                     </div>
                                 </div>
                                 <a href="/closedticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
-                                    <div class="subject">{{ Str::of($ticket->body)->limit(120) }}</div>
+                                    <div class="subject">{{ Str::of($ticket->body)->limit(100) }}</div>
                                     @if($ticket->priority_id == 1)
-                                    <div class="date"><button class="btn btn-sm btn-danger light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    <div class="date"><button class="btn btn-sm btn-danger light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
                                     @elseif($ticket->priority_id == 2)
-                                    <div class="date"><button class="btn btn-sm btn-primary light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    <div class="date"><button class="btn btn-sm btn-primary light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
                                     @elseif($ticket->priority_id == 3)
-                                    <div class="date"><button class="btn btn-sm btn-warning light">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                    <div class="date"><button class="btn btn-sm btn-warning light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
                                     @endif
                                 </a>
                             </div>

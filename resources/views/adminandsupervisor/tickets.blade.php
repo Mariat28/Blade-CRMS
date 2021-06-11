@@ -6,6 +6,8 @@
 <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">
 <link href="./css/style.css" rel="stylesheet">
+<link href="/public/css/custom.css" rel="stylesheet">
+
 @endsection
 
 @section('content')
@@ -47,11 +49,11 @@
                                 <a href="/ticketdetails/{{$newticket->id}}" class="col-mail col-mail-2">
                                     <div class="subject">{{ Str::of($newticket->body)->limit(80) }}</div>
                                     @if($newticket->priority_id == 1)
-                                    <div class="date"><button class="btn btn-sm btn-danger light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                    <div class="date"><button  class="btn btn-sm btn-danger light prioritybtn">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
                                     @elseif($newticket->priority_id == 2)
-                                    <div class="date"><button class="btn btn-sm btn-primary light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                    <div class="date"><button class="btn btn-sm btn-primary light prioritybtn">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
                                     @elseif($newticket->priority_id == 3)
-                                    <div class="date"><button class="btn btn-sm btn-warning light">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
+                                    <div class="date"><button  class="btn btn-sm btn-warning light prioritybtn">{{$prioritylist[($newticket->priority_id - 1)]->name}}</button></div>
                                     @endif
 
                                 </a>
@@ -76,4 +78,24 @@
 <script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="./js/custom.min.js"></script>
 <script src="./js/deznav-init.js"></script>
+<script src="https://js.pusher.com/3.1/pusher.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+   // Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+// Initiate the Pusher JS library
+let pusher = new Pusher('e6f0a3a49cb8568d7bf1', {
+    cluster: 'us2'
+});
+
+// Subscribe to the channel we specified in our Laravel Event
+let channel = pusher.subscribe('ticket-created');
+
+// Bind a function to a Event (the full Laravel class)
+channel.bind('App\\Events\\TicketCreated', function(data) {
+    // this is called when the event notification is received...
+    alert(JSON.stringify(data));
+});
+</script>
 @endsection
