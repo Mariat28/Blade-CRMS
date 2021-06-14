@@ -4,19 +4,19 @@
             <i class="fa fa-plus  align-middle mr-2"></i>Create New Ticket</a>
     </div>
     <div class="mail-list mt-4">
-        <a href="/tickets" class="list-group-item {{(request()->is('tickets')||request()->is('ticketdetails*')) ? 'active' : ''}}"><i
+        <a href="{{ route('tickets',['ticketsCategory'=>'unassigned']) }}" class="list-group-item {{(request()->is('tickets/unassigned')||request()->is('ticketdetails*')) ? 'active' : ''}}"><i
                 class="fa fa-inbox font-18 align-middle mr-2"></i> Unassigned <span
                 class="badge badge-primary badge-sm float-right">{{$unassignedTickets}}</span> 
         </a>      
-        <a href="/pendingtickets" class="list-group-item {{(request()->is('pendingtickets')) ? 'active' : ''}}"><i
+        <a href="{{ route('tickets',['ticketsCategory'=>'pending']) }}" class="list-group-item {{(request()->is('tickets/pending')) ? 'active' : ''}}"><i
             class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Pending<span
                 class="badge badge-primary badge-sm float-right">{{$pendingTickets}}</span> 
         </a>
-        <a href="/opentickets" class="list-group-item {{(request()->is('opentickets')||request()->is('openticketdetails*')) ? 'active' : ''}}"><i
+        <a href="{{ route('tickets',['ticketsCategory'=>'open']) }}" class="list-group-item {{(request()->is('tickets/open')||request()->is('openticketdetails*')) ? 'active' : ''}}"><i
             class="fa fa-paper-plane font-18 align-middle mr-2"></i>Open <span
                 class="badge badge-primary badge-sm float-right">{{$openTickets}}</span> 
         </a>
-        <a href="/closedtickets" class="list-group-item {{(request()->is('closedtickets')||request()->is('closedticketdetails*')) ? 'active' : ''}}""><i
+        <a href="{{ route('tickets',['ticketsCategory'=>'closed']) }}" class="list-group-item {{(request()->is('tickets/closed')||request()->is('closedticketdetails*')) ? 'active' : ''}}""><i
             class="fa fa-trash font-18 align-middle mr-2"></i>Closed<span
                 class="badge badge-primary badge-sm float-right">{{$closedTickets}}</span> 
         </a>

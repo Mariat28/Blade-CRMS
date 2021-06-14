@@ -1,11 +1,10 @@
 @extends('layouts.master')
 
 @section('headlinks')
-<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-<link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<link href="{{ URL::asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css'">
+<link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
-<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css">
-<link href="./css/style.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -28,9 +27,9 @@
                         @include('blocks.ticketsactions')
 
                         <div class="email-list mt-3">
-                            @if(count($neededTickets) <= 0) <div class="subject">All tickets have been assigned!!!</div>
+                            @if(count($tickets) <= 0) <div class="subject">All tickets have been assigned!!!</div>
                         @endif
-                        @foreach ($neededTickets as $ticket)
+                        @foreach ($tickets as $ticket)
                         <div class="message">
                             <div>
                                 <div class="d-flex message-single">
@@ -72,8 +71,8 @@
 @endsection
 
 @section('scripts')
-<script src="./vendor/global/global.min.js"></script>
-<script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-<script src="./js/custom.min.js"></script>
-<script src="./js/deznav-init.js"></script>
+<script src="{{ URL::asset('vendor/global/global.min.js') }}"></script>
+<script src="{{ URL::asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script src="{{ URL::asset('js/custom.min.js') }}"></script>
+<script src="{{ URL::asset('js/deznav-init.js') }}"></script>
 @endsection

@@ -2,8 +2,8 @@
 
 @section('headlinks')
 <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-<link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-<link href="./css/style.css" rel="stylesheet">
+<link href="{{ URL::asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -26,10 +26,10 @@
                         @include('blocks.ticketsactions')
                         
                         <div class="email-list mt-3">
-                            @if(count($opentickets)<=0)
+                            @if(count($tickets)<=0)
                             <div class="subject">No open tickets!!!</div>
                             @endif
-                            @foreach ($opentickets as $ticket)
+                            @foreach ($tickets as $ticket)
                                 <div class="message">
                                     <div>
                                         <div class="d-flex message-single">
@@ -95,8 +95,8 @@
 @endsection
 
 @section('scripts')
-<script src="./vendor/global/global.min.js"></script>
-<script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-<script src="./js/custom.min.js"></script>
-<script src="./js/deznav-init.js"></script>
+<script src=" {{ URL::asset('vendor/global/global.min.js') }}"></script>
+<script src=" {{ URL::asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script src=" {{ URL::asset('js/custom.min.js') }}"></script>
+<script src=" {{ URL::asset('js/deznav-init.js') }}"></script>
 @endsection

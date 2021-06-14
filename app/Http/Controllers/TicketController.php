@@ -34,13 +34,10 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function ticket()
+    public function tickets($ticketsCategory)
     {
         //Fetch all tickets specific to this company
-        $tickets = Issue::where('company_id', Auth::user()->company_id)->get();
-
-        //Fetch unassigned tickets specific to this company
-        $neededTickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 5)->get();
+        $allTickets = Issue::where('company_id', Auth::user()->company_id)->get();
 
         //Fetch tickets specific to this company
         $priorityList=TicketPriority::all();
@@ -51,7 +48,7 @@ class TicketController extends Controller
         $dueTickets = 0;
         $unassignedTickets = 0;
 
-        foreach($tickets as $ticket){
+        foreach($allTickets as $ticket){
             if($ticket->status_id == 1){
                 $closedTickets += 1;
             }
@@ -91,8 +88,44 @@ class TicketController extends Controller
             }
         }
 
-        #echo json_encode($departmentTickets);
-        return view('adminandsupervisor.tickets', compact('neededTickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets')); 
+        $tickets = null;
+
+        if($ticketsCategory == 'unassigned'){
+            //Fetch unassigned tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 5)->get();
+
+            return view('adminandsupervisor.tickets', compact('tickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets'));
+        }
+        elseif($ticketsCategory == 'pending'){
+            //Fetch unassigned tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 2)->get();
+
+            return view('adminandsupervisor.pendingtickets', compact('tickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets'));
+        }
+        elseif($ticketsCategory == 'open'){
+            //Fetch unassigned tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 3)->get();
+
+            return view('adminandsupervisor.opentickets', compact('tickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets'));
+        }
+        elseif($ticketsCategory == 'closed'){
+            //Fetch unassigned tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 1)->get();
+
+            return view('adminandsupervisor.closedtickets', compact('tickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets'));
+        }
+        elseif($ticketsCategory == 'due'){
+            //Fetch unassigned tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 4)->get();
+
+            return view('adminandsupervisor.tickets', compact('tickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets'));
+        }elseif($ticketsCategory == 'forwarded'){
+            //Fetch unassigned tickets specific to this company
+            $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', 6)->get();
+
+            return view('adminandsupervisor.tickets', compact('tickets', 'closedTickets','departments','pendingTickets','priorityList','openTickets','departmentTickets', 'unassignedTickets'));
+        }
+ 
     }
 
 

@@ -122,8 +122,8 @@ Route::get('/agentclosedtickets',[AgentClosedTicketsController::class, 'index'])
 
 
 //Mariat Functionality Merging
-Route::get('/tickets', [TicketController::class, 'ticket'])->name('tickets');
-Route::post('/tickets', [TicketController::class, 'addticket']);
+Route::get('/tickets/{ticketsCategory}', [TicketController::class, 'tickets'])->name('tickets');
+#Route::post('/tickets', [TicketController::class, 'addticket']);
 
 Route::post('/assignagent', [TicketController::class, 'assign'])->name('assignagent');
 
