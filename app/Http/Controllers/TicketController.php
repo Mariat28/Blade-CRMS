@@ -18,18 +18,18 @@ class TicketController extends Controller
     public function addticket(Request $req)
     {
         Issue::create([
-            'body' => $req->description,
-            'subject' => $req->subject,
-            'source' => $req->source,
-            'created_by' => Auth::user()->name,
-            'priority_id' => $req->priority,
-            'duration' => 0,
-            'status_id' => null,
-            'user_id' => null,
+            'subject'  => 'I need a refund',
+            'contact' => 'brandonelijah099@gmail.com',
+            'created_by' => 'Brandon Elijah',
+            'source' => 'www.mtn.co.ug',
+            'user_id' => 13,
+            'priority_id' => 2,
+            'status_id' => 2,
+            'company_id' => 1,
         ]);
-        return redirect('/tickets')->with("ticket_created","A new ticket has been created");
+        return back()->with("ticket_created","A new ticket has been created");
        
-        $ticket= Ticket::findOrFail($req->id);
+        $ticket = Ticket::findOrFail($req->id);
         TicketCreated::dispatch($ticket);
     }
     /**
@@ -133,9 +133,10 @@ class TicketController extends Controller
     //  retrieve one ticket's details
     public function ticketdetails($id, Request $req)
     {
-        $data = Issue::find($id);
-        $agents = User::where('userrole_id', 3)->get();
-        $tickets = Issue::where('status_id', null)->get();
+        $data = Issue::where('company_id', Auth::user()->company_id)->find($id);
+        $agents = User::where('company_id', Auth::user()->company_id)->where('userrole_id', 3)->get();
+        
+        $tickets = Issue::where('company_id', Auth::user()->company_id)->where('status_id', null)->get();
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
         $opentickets = Issue::where('status_id', 3)->get();
         $pendingtickets = Issue::where('status_id', 2)->get();

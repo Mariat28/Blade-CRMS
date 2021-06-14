@@ -29,7 +29,25 @@
                             @if(count($tickets)<=0)
                             <div class="subject">No pending tickets right now!!!</div>
                             @endif
-                            @foreach ($tickets as $newticket)
+                            <div class="message" style="background: rgba(0, 0, 0, 0.125)">
+                                <div>
+                                    <div class="d-flex message-single">
+                                        <div class="pl-1 align-self-center">
+                                            <div class="custom-control custom-checkbox">
+                                            </div>
+                                        </div>
+                                        <div class="ml-2">
+                                            <button class="border-0 bg-transparent align-middle p-0"><i
+                                                    class="fa fa-star" aria-hidden="true" style="color: transparent;"></i></button>
+                                        </div>
+                                    </div>
+                                    <a href="email-read.html" class="col-mail col-mail-2">
+                                        <div class="subject" style="color: #fff;">TICKET SUBJECT</div>
+                                        <div class="date" style="color: #fff; padding-right: 50px">PRIORITY</div>
+                                    </a>
+                                </div>
+                            </div>
+                            @foreach ($tickets as $ticket)
                                 <div class="message">
                                     <div>
                                         <div class="d-flex message-single">
@@ -45,14 +63,14 @@
                                                         class="fa fa-star" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
-                                        <a href="/ticketdetails/{{$newticket->id}}" class="col-mail col-mail-2">
-                                        <div class="subject">{{ Str::of($newticket->body)->limit(100) }}</div>
-                                        @if($newticket->priority_id == 1)
-                                    <div class="date"><button class="btn btn-sm btn-danger light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
-                                    @elseif($newticket->priority_id == 2)
-                                    <div class="date"><button class="btn btn-sm btn-primary light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
-                                    @elseif($newticket->priority_id == 3)
-                                    <div class="date"><button class="btn btn-sm btn-warning light prioritybtn">{{$prioritylist[($ticket->priority_id - 1)]->name}}</button></div>
+                                        <a href="/ticketdetails/{{$ticket->id}}" class="col-mail col-mail-2">
+                                        <div class="subject">{{ Str::of($ticket->subject)->limit(100) }}</div>
+                                        @if($ticket->priority_id == 1)
+                                    <div class="date"><button class="btn btn-sm btn-danger light prioritybtn">{{$priorityList[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($ticket->priority_id == 2)
+                                    <div class="date"><button class="btn btn-sm btn-primary light prioritybtn">{{$priorityList[($ticket->priority_id - 1)]->name}}</button></div>
+                                    @elseif($ticket->priority_id == 3)
+                                    <div class="date"><button class="btn btn-sm btn-warning light prioritybtn">{{$priorityList[($ticket->priority_id - 1)]->name}}</button></div>
                                     @endif
                                         </a>
                                     </div>

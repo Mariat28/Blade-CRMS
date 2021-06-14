@@ -10,7 +10,7 @@
 		</div>
 		<div class="modal-body">
 		    <div class="compose-content">
-				<form action="tickets" method="post" id="createticket">
+				<form action="{{ route('addticket') }}" method="post" id="createticket">
 					@csrf
 					<div class="form-group">
 					<label for="sender">Origin</label>
