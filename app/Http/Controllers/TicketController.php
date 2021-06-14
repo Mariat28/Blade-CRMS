@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketCreated;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Issue;
@@ -26,9 +27,10 @@ class TicketController extends Controller
             'status_id' => null,
             'user_id' => null,
         ]);
-            // session()->put('success','new ticket created');
         return redirect('/tickets')->with("ticket_created","A new ticket has been created");
        
+        $ticket= Ticket::findOrFail($req->id);
+        TicketCreated::dispatch($ticket);
     }
     /**
      * @return \Illuminate\Http\Response
@@ -166,10 +168,11 @@ class TicketController extends Controller
         $reply = Reply::where('ticket_id', $id)->first();
         $comments = $ticket->comments;
         $departments = Group::where('company_id', Auth::user()->company_id)->get();
-        $tickets = Issue::where('status_id', null)->get();
-        $opentickets = Issue::where('status_id', 3)->get();
-        $pendingtickets = Issue::where('status_id', 2)->get();
-        $closedtickets = Issue::where('status_id', 1)->get();
+        $tickets = Ticket::where('status_id', null)->get();
+        $opentickets = Ticket::where('status_id', 3)->get();
+        $pendingtickets = Ticket::where('status_id', 2)->get();
+        $closedtickets = Ticket::where('status_id', 1)->get();
+        $prioritylist=TicketPriority::all();
         $departmentTickets = [];
 
         foreach($departments as $department){
@@ -187,7 +190,7 @@ class TicketController extends Controller
                 array_push($departmentTickets, ["id" => $department->id, "name" => $department->name, "tickets"=> $totalTickets]);
             }
         }
-        return view('openticketdetails', compact('ticket', 'reply', 'comments', 'tickets', 'departments','opentickets','closedtickets','pendingtickets','departmentTickets'));
+        return view('openticketdetails', compact('ticket', 'reply', 'prioritylist','comments', 'tickets', 'departments','opentickets','closedtickets','pendingtickets','departmentTickets'));
     }
     //retrieve closedticket details
     public function closedticketdetails($id){

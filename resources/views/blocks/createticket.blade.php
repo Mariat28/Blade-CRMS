@@ -53,8 +53,10 @@
 				</div>
 					<div class="form-group">
 					<label for="ticketsource">Ticket description</label>
-						<textarea id="ticketdescription" class="textarea_editor form-control bg-transparent" rows="8" placeholder="Enter ticket description..." name="description" required>
-						</textarea>
+		
+						<div class="form-group pt-3">
+							<textarea id="ticketdescription" cols="30" style="height:300px;" rows="5"  class="form-control" name="description" placeholder="Enter ticket description..." required></textarea>
+						</div>
 					</div>
 				</form>
 			</div>

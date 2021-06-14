@@ -28129,6 +28129,9 @@ span#counter {
   font-weight: 400;
   line-height: 24px;
   margin-bottom: 25px; }
+  .prioritybtn{
+    width:130px;
+  }
 
 .tab-item-list li a {
   background: #fff;
