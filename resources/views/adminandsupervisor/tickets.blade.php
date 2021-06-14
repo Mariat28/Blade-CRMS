@@ -2,9 +2,7 @@
 
 @section('headlinks')
 <link href="{{ URL::asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/bootstrap-3.min.css'">
 <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
-<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 @endsection
 
 @section('content')
@@ -71,6 +69,7 @@
 @endsection
 
 @section('scripts')
+<script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
 <script src="{{ URL::asset('vendor/global/global.min.js') }}"></script>
 <script src="{{ URL::asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script src="{{ URL::asset('js/custom.min.js') }}"></script>
